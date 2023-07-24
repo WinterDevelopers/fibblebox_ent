@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="style=doutone">
+<g id="calendar-cells">
+<path id="rectangle (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M1.25 8C1.25 5.37665 3.37665 3.25 6 3.25H18C20.6234 3.25 22.75 5.37665 22.75 8V18C22.75 20.6234 20.6234 22.75 18 22.75H6C3.37665 22.75 1.25 20.6234 1.25 18V8ZM6 4.75C4.20507 4.75 2.75 6.20507 2.75 8V18C2.75 19.7949 4.20507 21.25 6 21.25H18C19.7949 21.25 21.25 19.7949 21.25 18V8C21.25 6.20507 19.7949 4.75 18 4.75H6Z" fill="#000000"/>
+<rect id="vector" x="7" y="9.5" width="2" height="2" rx="0.5" fill="#BFBFBF"/>
+<rect id="vector_2" x="11" y="9.5" width="2" height="2" rx="0.5" fill="#BFBFBF"/>
+<rect id="vector_3" x="15" y="9.5" width="2" height="2" rx="0.5" fill="#BFBFBF"/>
+<rect id="vector_4" x="7" y="12.5" width="2" height="2" rx="0.5" fill="#BFBFBF"/>
+<rect id="vector_5" x="7" y="15.5" width="2" height="2" rx="0.5" fill="#BFBFBF"/>
+<rect id="vector_6" x="11" y="12.5" width="2" height="2" rx="0.5" fill="#BFBFBF"/>
+<rect id="vector_7" x="11" y="15.5" width="2" height="2" rx="0.5" fill="#BFBFBF"/>
+<rect id="vector_8" x="15" y="12.5" width="2" height="2" rx="0.5" fill="#BFBFBF"/>
+<rect id="vector_9" x="15" y="15.5" width="2" height="2" rx="0.5" fill="#BFBFBF"/>
+<path id="line (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M8 1.25C8.41421 1.25 8.75 1.58579 8.75 2V5.5C8.75 5.91421 8.41421 6.25 8 6.25C7.58579 6.25 7.25 5.91421 7.25 5.5V2C7.25 1.58579 7.58579 1.25 8 1.25Z" fill="#BFBFBF"/>
+<path id="line (Stroke)_2" fill-rule="evenodd" clip-rule="evenodd" d="M16 1.25C16.4142 1.25 16.75 1.58579 16.75 2V5.5C16.75 5.91421 16.4142 6.25 16 6.25C15.5858 6.25 15.25 5.91421 15.25 5.5V2C15.25 1.58579 15.5858 1.25 16 1.25Z" fill="#BFBFBF"/>
+</g>
+</g>
+</svg>

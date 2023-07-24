@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibblebox</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <section id="navbar" class="navbar">
+       <nav>
+        <div class="search-mobile no-display-max" id="menu-search-btn">
+            <img src="{% static 'icons/search.svg' %}" alt="" class="icon-3">
+        </div>
+        <div class="nav-icon">
+            logo
+        </div>
+        <div class="nav-options no-display-mini">
+            <div>
+                Contact
+            </div>
+            <div>
+                About
+            </div>
+            <div>
+                Support
+            </div>
+        </div>
+        <div class="nav-search no-display-mini">
+            <form action="" method="get">
+                <div>
+                    <input type="search" name="" id="">
+                    <!-- <img src="{% static 'icons/search.svg' %}" alt="" class="icon-2"> -->
+                </div>
+                <button>search</button>
+            </form>
+        </div>
+        <div class="mobile-nav-btn no-display-max">
+            <img src="{% static 'icons/strawberry-menu.svg' %}" alt="" class="icon-3" id="mobile-nav-btn-open">
+            <img src="{% static 'icons/close.svg' %}" alt="" class="no-display" id="mobile-nav-btn-close">
+        </div>
+       </nav> 
+    </section>
+    <section class="no-display slide-in-sections" id="mobile-side-bar">
+        <div class="side-menu-content">
+            <div class="side-menu-item ">
+                Home
+            </div>
+            <div class="side-menu-item">
+                About
+            </div>
+            <div class="side-menu-item">
+                Services
+            </div>
+            <div class="side-menu-item">
+                Contacts
+            </div>
+        </div>
+    </section>
+    <section class="no-display  slide-in-sections" id="search-page">
+        <form action="" class="search-form" method="post" id="search-form">
+            {% csrf_token %}
+            <input type="search" name="" id="search-input" placeholder="what are you looking for ?">
+        </form>
+        <section class="search-results-page">
+            <h5>Avaliable Results</h5>
+            <div style="width:3rem;height:0.2rem;background-color: rgb(10, 10, 10); position: relative;top:-0.5rem; border-radius:0.1rem;margin-bottom: 3rem;"></div>
+            <div class="product-item-container search-items" id='search-results'>
+           
+            </div> 
+        </section>
+        <script src=""></script>
+    </section>
+    <script src="/static/js/mobile_nav_bar.js" type="module"></script>
+    <script src="/static/js/search_nav.js" type="module"></script>
+    <section class="top-banner">
+       <h2>
+        Fibblebox
+       </h2>
+       <h6>
+        Entertainment Platform
+       </h6>
+       <div class="top-banner-content">
+        <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Dobus, fugiat corrupti. Reprehenderit debitis veritatis
+            distinctio nulla molestias,[default]
+        </p>
+        <img src="{% static 'images/vibeMan.jpg' %}" alt="">
+       </div>
+       <div class="top-banner-bottom-bar"></div>
+    </section>
+    <section class="top-trending">
+        <h3>Trending</h3>
+        <div class="trending-container">
+            <div class="trending-content">
+                <img src="{% static 'images/profile1.png' %}" alt="" class="trending-image">
+                <img src="{% static 'icons/poll-svgrepo-com.svg' %}" alt="" class="icon-3 trending-icon">
+                <h6>Name</h6>
+            </div>
+            <div class="trending-content">
+                <img src="{% static 'images/profile3.png' %}" alt="" class="trending-image">
+                <img src="{% static 'icons/event-svgrepo-com.svg' %}" alt="" class="icon-3 trending-icon">
+                <h6>Name</h6>
+            </div>
+            <div class="trending-content">
+                <img src="{% static 'images/profile4.png' %}" alt="" class="trending-image">
+                <img src="{% static 'icons/news-svgrepo-com.svg' %}" alt="" class="icon-3 trending-icon">
+                <h6>Name</h6>
+            </div>
+            <div class="trending-content">
+                <img src="{% static 'images/profile2.png' %}" alt="" class="trending-image">
+                <img src="{% static 'icons/poll-svgrepo-com.svg' %}" alt="" class="icon-3 trending-icon">
+                <h6>COUNUA STUDENT OF THE YEAR 2020/2021</h6>
+            </div>
+           
+        </div>
+    </section>
+    <section class="polls-events-banner">
+        <div class="poll-banner-a">
+            <h3 class="poll-event-banner-h3">
+                POLLS
+            </h3>
+            <img src="{% static 'icons/poll-banner-icon.svg' %}" alt="" class="poll-event-banner-icon">
+        </div>
+        <div class="poll-banner-b">
+            <div class="poll-event-banner-text">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Dobus, fugiat corrupti. Reprehenderit debitis veritatis
+                distinctio nulla molestias,[default]
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Dobus, fugiat corrupti. Reprehenderit debitis veritatis
+                distinctio nulla molestias,[default]
+            </div>
+            <div class="poll-event-banner-others">
+                <div>
+                    <img src="{% static 'images/profile3.png' %}" alt="" class="poll-event-circular-image">
+                    <img src="{% static 'images/profile1.png' %}" alt="" class="poll-event-circular-image">
+                    <img src="{% static 'images/profile4.png' %}" alt="" class="poll-event-circular-image">
+                </div>
+                <button>
+                  More  <img src="{% static 'icons/arrow-long-right.svg' %}" alt="" class="icon-2">
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="polls-events-banner">
+        <div class="event-banner-a">
+            <h3 class="poll-event-banner-h3">
+                EVENTS
+            </h3>
+            <img src="{% static 'icons/calendar-color.svg' %}" alt="" class="poll-event-banner-icon">
+        </div>
+        <div class="event-banner-b">
+            <div class="poll-event-banner-text">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Dobus, fugiat corrupti. Reprehenderit debitis veritatis
+                distinctio nulla molestias,[default]
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Dobus, fugiat corrupti. Reprehenderit debitis veritatis
+                distinctio nulla molestias,[default]
+            </div>
+            <div class="poll-event-banner-others">
+                <div>
+                    <img src="{% static 'images/profile3.png' %}" alt="" class="poll-event-circular-image">
+                    <img src="{% static 'images/profile1.png' %}" alt="" class="poll-event-circular-image">
+                    <img src="{% static 'images/profile4.png' %}" alt="" class="poll-event-circular-image">
+                </div>
+                <button>
+                  More  <img src="{% static 'icons/arrow-long-right.svg' %}" alt="" class="icon-2">
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="about-us">
+        <h3>
+            Want to know more about fibblebox ?
+        </h3>
+        <div class="about-us-card">
+            <img src="{% static 'images/about.png' %}" alt="" class="about-us-icon">
+            <div class="about-us-header">
+                <h2 class="about">About</h2><h2 class="us"> Us</h2>
+            </div>
+            <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Dobus, fugiat corrupti. Reprehenderit debitis veritatis
+                distinctio nulla molestias,[default]
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Dobus, fugiat corrupti. Reprehenderit debitis veritatis
+                distinctio nulla molestias,[default]
+            </p>
+            <button>more</button>
+        </div>
+    </section>
+    <section class="blog-section">
+        <h3>
+            keeping up
+        </h3>
+        <p>
+            with light
+        </p>
+        <div class="blog-container">
+            <div class="blog-card">
+                <img src="{% static 'images/chococake.jpg' %}" alt="" class="blog-card-image">
+                <h2>WHY ALWAYS CAKE</h2>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Dobus, fugiat corrupti. Reprehenderit debitis veritatis....
+                </p>
+                <div>
+                    <div class="blog-icon-container">
+                        <img src="{% static 'icons/clock.svg' %}" alt="" class="icon-3">
+                        <p>Today</p>
+                    </div>
+                    <div class="blog-icon-container">
+                        <img src="{% static 'icons/comment.svg' %}" alt="" class="icon-3">
+                        <p>2.3k</p>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="{% static 'images/chair.jpg' %}" alt="" class="blog-card-image">
+                <h2>NEXT SOFA CHAIRS</h2>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Dobus, fugiat corrupti. Reprehenderit debitis veritatis....
+                </p>
+                <div>
+                    <div class="blog-icon-container">
+                        <img src="{% static 'icons/clock.svg' %}" alt="" class="icon-3">
+                        <p>Today</p>
+                    </div>
+                    <div class="blog-icon-container">
+                        <img src="{% static 'icons/comment.svg' %}" alt="" class="icon-3">
+                        <p>2.3k</p>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-more-samples">
+                <div>
+                    <img src="{% static 'images/profile3.png' %}" alt="" class="blog-more-samples-image">
+                    <img src="{% static 'images/profile1.png' %}" alt="" class="blog-more-samples-image">
+                    <img src="{% static 'images/profile4.png' %}" alt="" class="blog-more-samples-image">
+                </div>
+                <button>
+                    <img src="{% static 'icons/arrow-long-right.svg' %}" alt="" class="icon-2">
+                </button>
+            </div>
+        </div>
+        
+    </section>
+    <section class="contact-us">
+        <h3>Contact US</h3>
+        <div></div>
+        <form action="" method="post" class="contact-us-form">
+            {% csrf_token %}
+            <input type="text" placeholder="Name">
+            <input type="email" name="" id="" placeholder="Email">
+            <input type="text" name="" placeholder="Message">
+            <input type="submit" value="Send">
+        </form>
+    </section>
+    <section class="footer">
+        <h3>socials</h3>
+        <div class="footer-line"></div>
+        <div class="footer-icons">
+            <img src="{% static 'icons/instagram.svg' %}" alt="" class="icon-3">
+            <img src="{% static 'icons/twitter.svg' %}" alt="" class="icon-3">
+        </div>
+        <h3>contact</h3>
+        <div class="footer-line"></div>
+        <div class="footer-icons">
+            <img src="{% static 'icons/phone.svg' %}" alt="" class="icon-3">
+            <img src="{% static 'icons/envelope.svg' %}" alt="" class="icon-3">
+        </div>
+        <div class="footer-bottom">Copyright 2023</div>
+        <div class="footer-bottom">Terms and Conditions</div>
+        <div class="footer-bottom">Developed by WinterDevelopers</div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <section>
+        <div class="candidate-page">
+            <img src="{% static 'images/vibeMan.jpg' %}" alt="" class="candidate-page-img">
+            <div class="candidate-page-details">
+                <div class="candidate-page-header">
+                    <h1>Nwankwo</h1>
+                    <div>
+                        <h4>239</h4>
+                        <p>votes</p>
+                    </div>
+                </div>
+                <div class="office">king of nigeria</div>
+                <p class="candidate-page-about">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Dobus, fugiat corrupti.
+                </p>
+                <button class="coupon-btn btn-shadow">
+                    vote with coupon
+                </button>
+                <p class="or">or</p>
+                <form class="select-vote-form" method="post" >
+                    {% csrf_token %}
+                    <div class="select-vote-count">
+                        <button class="vote-count-btn">
+                            <img src="{% static 'icons/minus-white.svg' %}" alt="" class="icon-2">
+                        </button>
+                        <form action="">
+                            {% csrf_token %}
+                            <input type="number" name="" id="" value="2">
+                    
+                        <button class="vote-count-btn">
+                            <img src="{% static 'icons/add-white.svg' %}" alt="" class="icon-2">
+                        </button>
+                    </div>
+                    <input type="email" name="" id="" placeholder="Email">
+                    <input type="submit" value="vote" class="btn-shadow">
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
