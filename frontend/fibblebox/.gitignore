@@ -31,6 +31,3 @@ yarn-error.log*
 # vercel
 .vercel
 
-
-#api_url
-fecth_urls.js
