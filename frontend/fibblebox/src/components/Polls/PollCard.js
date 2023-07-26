@@ -9,17 +9,17 @@ export default function PollCard(props){
             <Link  href={"polls/"+props.slug} 
                     style={{textDecoration:'none',color:'#343434'}}>
 
-                <Image 
+                <img 
                 src={api_url+props.image_link} 
                 alt={props.name} 
                 className="poll-card-img" 
-                width={100} 
+                /* width={100} 
                 height={300} 
                 sizes="(max-width:600px) 100%, 100%" 
-                quality={8}
+                quality={8} */
                 style={{objectFit:'cover'}}
                 >
-                </Image>
+                </img>
                 <div>
                     <div className="poll-card-header">
                         <div className="poll-card-header-text">{props.name}</div>
