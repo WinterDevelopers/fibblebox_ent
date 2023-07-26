@@ -18,8 +18,7 @@ export default function PollCard(props){
                 sizes="(max-width:600px) 100%, 100%" 
                 quality={8} */
                 style={{objectFit:'cover'}}
-                >
-                </img>
+                ></img>
                 <div>
                     <div className="poll-card-header">
                         <div className="poll-card-header-text">{props.name}</div>
