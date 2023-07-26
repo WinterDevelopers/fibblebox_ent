@@ -10,7 +10,7 @@ import secrets
 class Poll(models.Model):
     name = models.CharField(max_length=250,default="default text")
     slug = models.SlugField(max_length=250, unique=True)
-    poll_image = models.ImageField(upload_to = 'media/poll')
+    poll_image = models.ImageField(upload_to = 'poll')
     poll_info = models.TextField(max_length=3000, null=True)
     date = models.DateField()
     location = models.CharField(max_length=50,default="default text")
@@ -65,7 +65,7 @@ class Candidate(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=150, null=True)
     quote = models.CharField(max_length=250)
-    personal_image = models.ImageField(upload_to = 'media/candidates')
+    personal_image = models.ImageField(upload_to = 'candidates')
     votes = models.PositiveIntegerField(default=0)
 
     @property
@@ -79,7 +79,7 @@ class Candidate(models.Model):
     #@property
     #def percentage_votes(self):
         total_votes = sum([vote  for vote in range(0,self.votes - 1)])
-        return total_votes
+        return total_votes  
 
     @property
     def office_name(self):
@@ -205,7 +205,7 @@ class couponPayment(models.Model):
 class pageantrySponsor(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, null=True, related_name="poll_sponsor")
     name = models.CharField(max_length=30)
-    image = models.ImageField(upload_to='media/sponsors')
+    image = models.ImageField(upload_to='sponsors')
 
     @property
     def imageURL(self):

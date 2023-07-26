@@ -1,5 +1,6 @@
 import PaystackPop from '@paystack/inline-js';
 
+
 export const paystackInitialize = async (email,amount,reference,candidate_name,contest)=>{
     const paystack = new PaystackPop();
     paystack.newTransaction({
