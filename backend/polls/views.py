@@ -17,9 +17,14 @@ from .coupon_generator import CouponGenerator
 @permission_classes([AllowAny])
 def getPolls(request):
     polls = Poll.objects.all()
-    serialized_polls = PollsSerializers(polls, many=True)
+    poll_object = []
+    for x in polls:
+        poll = get_object_or_404(Poll, id=x.id)
+        poll_votes = poll.total_votes
+        serialized_polls = PollsSerializers(poll)
+        poll_object.append({"poll":serialized_polls.data, "total_votes":poll_votes})
 
-    return Response(serialized_polls.data, 200)
+    return Response(poll_object, 200)
 
 @api_view(["GET"])
 @permission_classes([AllowAny])

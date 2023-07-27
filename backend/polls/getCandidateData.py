@@ -11,7 +11,6 @@ class CandidateData():
     def getCandidateData(self):
         candidates = get_object_or_404(Candidate, slug=self.slug)
         office = get_object_or_404(Office, id=candidates.office.id)
-        print(office.office_name)
         serialized_candidates = CandidateSerializers(candidates)#add many True
         response_data = serialized_candidates.data
         response_data['office']=office.office_name

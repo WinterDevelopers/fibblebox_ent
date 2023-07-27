@@ -4,7 +4,7 @@ import api_url from "../../../fecth_urls"
 
 export default function polls(data){
     const data_list = data.data
-
+    console.log(data_list)
     return <>
         <PollHeader></PollHeader>
         <section>
@@ -14,13 +14,14 @@ export default function polls(data){
                 {data_list.map(data_ => {
                     return(
                         <PollCard
-                        key={data_.id}
-                        image_link={data_.poll_image}
-                        name={data_.name}
-                        date={data_.date}
-                        location={data_.location}
-                        cost={data_.cost}
-                        slug={data_.slug}
+                        key={data_.poll.id}
+                        image_link={data_.poll.poll_image}
+                        name={data_.poll.name}
+                        date={data_.poll.date}
+                        total_votes={data_.total_votes}
+                        location={data_.poll.location}
+                        cost={data_.poll.cost}
+                        slug={data_.poll.slug}
                         />
                     )
                 })}

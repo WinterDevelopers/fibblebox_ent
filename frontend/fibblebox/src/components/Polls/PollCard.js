@@ -13,8 +13,8 @@ export default function PollCard(props){
                 src={api_url+props.image_link} 
                 alt={props.name} 
                 className="poll-card-img" 
-                /* width={100} 
                 height={300} 
+                /* width={100} 
                 sizes="(max-width:600px) 100%, 100%" 
                 quality={8} */
                 style={{objectFit:'cover'}}
@@ -23,7 +23,7 @@ export default function PollCard(props){
                     <div className="poll-card-header">
                         <div className="poll-card-header-text">{props.name}</div>
                         <div>
-                            <p className="poll-card-header-num">300</p>
+                            <p className="poll-card-header-num">{props.total_votes}</p>
                             <div>votes</div>
                         </div>
                     </div>
@@ -33,11 +33,11 @@ export default function PollCard(props){
                     <div className="poll-card-bottom">
                         <div>
                             <img src="../assets/icons/location.svg" alt="location-icon" className="icon-2"></img>
-                            {props.location}
+                            <div>{props.location}</div>
                         </div>
                         <div>
                             <img src="../assets/icons/naira.svg" alt="location-icon" className="icon-2"></img>
-                            {props.cost}
+                            <div>{props.cost}</div>
                         </div>
                     </div>
                 </div>

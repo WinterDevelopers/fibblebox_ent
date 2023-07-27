@@ -13,14 +13,14 @@ export default function ContestHeader(props){
     console.log('list',offices_list)
     return <>
         <section>
-            <Image 
+            <img
             src={api_url+props.image_link}
             style={{objectFit:'cover'}}
-            width={1000}
             height={100}
+            /* width={1000}
             sizes="(max-width:600px) 50, 100vw"
-            quality={10}
-            alt="" 
+            quality={10} */
+            alt={props.name} 
             class="contest-banner"  />
 
         <div class="contest-info">
