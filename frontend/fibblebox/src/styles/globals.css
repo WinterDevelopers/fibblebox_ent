@@ -596,8 +596,7 @@ display: flex;
 }
 .office-contender-image{
   width:100%;
-  height:18
-  rem;
+  height:18rem;
   object-fit: cover;
   border-radius: 2rem 2rem 0rem 0rem;
 }
