@@ -9,11 +9,13 @@ export default function TopBanner(){
             </h6>
             <div className="top-banner-content">
                 <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Dobus, fugiat corrupti. Reprehenderit debitis veritatis
-                    distinctio nulla molestias,[default]
+                    Number one online Entertainment platfrom for your Polling activities, Event activities and Next-Gen blogging
+                    services. All at your fingertips...
                 </p>
-                <img src="../assets/images/vibeMan.jpg" alt=""></img>
+                <a href="https://azuri.lnk.to/Chrisdubby?fbclid=PAAab6i-5tGrMakwhb9c_oWWax0zFVaYOsaVWa09VU1K3ECBQdifPv5oGzWPo">
+                  <img src="../assets/images/vibeMan.webp" alt=""></img>  
+                </a>
+                
             </div>
             <div className="top-banner-bottom-bar"></div>
         </section>
@@ -22,22 +24,22 @@ export default function TopBanner(){
         <div className="trending-container">
             <div className="trending-content">
                 <img src="../assets/images/profile1.png" alt="" className="trending-image"></img>
-                <img src="../assets/icons/poll-svgrepo-com.svg" alt="" className="icon-3 trending-icon"></img>
-                <h6>Name</h6>
+                <div className="poll-trending">Poll</div>
+                <h6>SUN SET</h6>
             </div>
             <div className="trending-content">
                 <img src="../assets/images/profile3.png" alt="" className="trending-image"></img>
-                <img src="../assets/static 'icons/event-svgrepo-com.svg" alt="" className="icon-3 trending-icon"></img>
-                <h6>Name</h6>
+                <div className="event-trending">Event</div>
+                <h6>HOME ALONE</h6>
             </div>
             <div className="trending-content">
                 <img src="../assets/images/profile4.png" alt="" className="trending-image"></img>
-                <img src="../assets/icons/news-svgrepo-com.svg" alt="" className="icon-3 trending-icon"></img>
-                <h6>Name</h6>
+                <div className="blog-trending">Blog</div>
+                <h6>NEW HOPE</h6>
             </div>
             <div className="trending-content">
                 <img src="../assets/images/profile2.png" alt="" className="trending-image"></img>
-                <img src="../assets/icons/poll-svgrepo-com.svg" alt="" className="icon-3 trending-icon"></img>
+                <div className="poll-trending">Poll</div>
                 <h6>COUNUA STUDENT OF THE YEAR 2020/2021</h6>
             </div>
            

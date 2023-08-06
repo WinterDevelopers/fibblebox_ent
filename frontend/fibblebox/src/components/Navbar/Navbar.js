@@ -17,8 +17,9 @@ function Navbar(){
                 <Link 
                     href="/"
                     style={{textDecoration:'none',color:'black'}}
-                    
-                >Home </Link>
+                >
+                    <img src="/assets/logo.svg" className="logo-icon" />
+                </Link>
                 </div>
                 <div className="nav-options no-display-mini">
                     <div>

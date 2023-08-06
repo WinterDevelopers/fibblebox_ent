@@ -11,12 +11,9 @@ export default function Polls_banner(){
         </div>
         <div className="poll-banner-b">
             <div className="poll-event-banner-text">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Dobus, fugiat corrupti. Reprehenderit debitis veritatis
-                distinctio nulla molestias,[default]
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Dobus, fugiat corrupti. Reprehenderit debitis veritatis
-                distinctio nulla molestias,[default]
+                We provide our clients and users with the best online polling services, ranging from 
+                free polling services , specific polling services to monitized polling services. Our 
+                goal is to allow our clients and users enjoy a seamless environment to host their activities.
             </div>
             <div className="poll-event-banner-others">
                 <div>

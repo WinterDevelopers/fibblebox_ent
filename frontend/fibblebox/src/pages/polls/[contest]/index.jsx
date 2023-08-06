@@ -20,6 +20,7 @@ export default function(data){
             info = {data_.poll.poll_info}
             offices = {data_.details}
             total_votes={data_.total_votes}
+            count_down = {data_.poll.count_down}
         />
     </>
 }
@@ -31,6 +32,7 @@ export async function getServerSideProps(context){
     const apiRes = await fetch(url);
     if (apiRes.status == 200){
         const data = await apiRes.json();
+        console.log(data)
         return {props:{data}}
     };
     const data = {'res':'404'};
