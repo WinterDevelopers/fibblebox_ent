@@ -17,7 +17,7 @@ export default function PollsPayment(){
     return <>
         <section class="candidate-vote-payment"  style={{paddingTop:'15rem'}}>
             <div>
-                <p>{votes} votes for vibe man would cost</p>
+                <p>{votes} votes for {candidate_name} would cost</p>
                 <div class="payment-amout">N {amount}.00</div>
             </div>
 

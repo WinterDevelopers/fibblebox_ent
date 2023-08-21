@@ -62,10 +62,11 @@ export default function Candidate(props){
         const apiRes = await fetch(url,option);
         if(apiRes.status == 200){
            const data = await apiRes.json();
-           
+           const contest = urlParam.get('contest')
+           const _candidate = urlParam.get('candidate')
            router.push({
             pathname:'/polls/payment',
-            query:{'reference':data.response_data.reference,'amount':data.response_data.amount, 'votes':data.response_data.votes, 'email':data.response_data.email,'candidate_name':urlParam.get('candidate'), 'contest':urlParam.get('contest')}
+            query:{'reference':data.response_data.reference,'amount':data.response_data.amount, 'votes':data.response_data.votes, 'email':data.response_data.email,'candidate_name':_candidate, 'contest':contest}
            });
         }
         else{
