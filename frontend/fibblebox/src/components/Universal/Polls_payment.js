@@ -7,6 +7,8 @@ export default function PollsPayment(){
     const {reference, votes, amount, email, candidate_name, contest} = router.query;
 
     const makePayment = async()=>{
+        document.getElementById('make-payment').className='no-display';
+        document.getElementById('payment-processing').className='';
         if(typeof window !== 'undefined'){
             const paystack = await import("../../../utils/Paystack");
             const resPayment = paystack.paystackInitialize(email, amount, reference,candidate_name,contest);
@@ -21,7 +23,8 @@ export default function PollsPayment(){
                 <div class="payment-amout">N {amount}.00</div>
             </div>
 
-            <div class="candidate-vote-payment-button btn-shadow" onClick={makePayment}>make payment</div>
+            <div class="candidate-vote-payment-button btn-shadow" id="make-payment" onClick={makePayment}>make payment</div>
+            <div style={{textAlign:'center'}} id="payment-processing" className="no-display">Please wait your payment is proccessing ...</div>
 
         </section>
     </> 
