@@ -746,10 +746,10 @@ display: flex;
 .coupon-btn{
   background-color:#A0FBF5;
   color:white;
-  width:80%;
+  width:83%;
   border:none;
   padding:1rem;
-  margin: 1rem 10%;
+  margin: 1rem 8%;
   border-radius:0.5rem;
 }
 .coupon-form{
@@ -798,7 +798,7 @@ display: flex;
 }
 .select-vote-count{
   display:flex;
-  max-width:auto;
+  width:min-content;
   margin:0rem auto;
   margin-bottom:2rem;
   justify-content: space-between;
@@ -824,8 +824,8 @@ display: flex;
   border:none;
   border-radius:0.5rem;
   width:75%;
-  padding:5%;
-  margin: 1rem 7.5%;
+  padding:1rem;
+  margin: 1rem 7.49%;
   text-align: center;
 }
 .select-vote-form input[type="submit"]{
