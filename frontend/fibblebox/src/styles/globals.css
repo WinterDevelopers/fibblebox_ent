@@ -906,7 +906,7 @@ display: flex;
   font-weight: 300;
   font-size: small;
   background-color: #fcc8c8;
-  border: solid 0.2rem #e20000;
+  border: solid 0.05rem #e20000;
   border-radius:1rem ;
   display: flex;
   flex-direction: row;

@@ -65,7 +65,7 @@ export default function Candidate(props){
            const contest = urlParam.get('contest')
            const _candidate = urlParam.get('candidate')
            router.push({
-            pathname:'/polls/payment',
+            pathname:'/polls/payment/',
             query:{'reference':data.response_data.reference,'amount':data.response_data.amount, 'votes':data.response_data.votes, 'email':data.response_data.email,'candidate_name':_candidate, 'contest':contest}
            });
         }
