@@ -39,11 +39,10 @@ async function verifyPayment (reference, candidate_name,contest){
     if(apiRes.status == 202){
         const res_data = await apiRes.json();
         const {votes} = res_data.data;
-
-        window.location.replace(`/${contest.toLowerCase()}/${candidate_name.toLowerCase()}?vtes=Your ${votes} vote(s) has been successfully added!!!&status=success`)
+        
+        window.location.replace(`${contest.toLowerCase()}/${candidate_name.toLowerCase()}?vtes=Your ${votes} vote(s) has been successfully added!!!&status=success`)
     }
     else{
-        
-        window.location.replace(`/${contest.toLowerCase()}/${candidate_name.toLowerCase()}?vtes=Opps and error occurred!!!&status=error`)
+        window.location.replace(`${contest.toLowerCase()}/${candidate_name.toLowerCase()}?vtes=Opps and error occurred!!!&status=error`)
     }
 }
