@@ -1,5 +1,6 @@
 import Link from "next/link";
 import api_url from "../../../fecth_urls";
+import ifTimeRemaining from "@/functions/validate_time_left";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import {useSearchParams} from "next/navigation";
@@ -7,10 +8,13 @@ import {useSearchParams} from "next/navigation";
 
 export default function Candidate(props){
     const [voteCoupon, setVoteCoupon] = useState(false);
+    const [votingEnded, setVotingEnded] = useState(true);
 
     function toggleVotingMode(){
         setVoteCoupon(!voteCoupon)
     }
+
+    //console.log(props)
 
     const votes = useRef(0);
     const votesRef = useRef();
@@ -39,39 +43,54 @@ export default function Candidate(props){
     const router = useRouter();
     const urlParam = useSearchParams()
 
-    let poll = urlParam.get('contest')
-    const status = urlParam.get('status')
-    const message = urlParam.get('vtes')
+    let poll = urlParam.get('contest');
+    let status = urlParam.get('status');
+    let message = urlParam.get('vtes');
     
-    const [showMessage, setShowMessage] = useState(false)
+    const [showMessage, setShowMessage] = useState(false);
 
- 
-    const submitVoteEmail = async (e)=>{
-        e.preventDefault()
-        const body = {'email':emailRef.current.value, 'votes':votesRef.current.value, 'candidate_id':props.id}
-        console.log(body);
-        const url = '/api/email_vote';
-        const option = {
-            method:'POST',
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json',
-            },
-            body:JSON.stringify(body)
-        }
-        const apiRes = await fetch(url,option);
-        if(apiRes.status == 200){
-           const data = await apiRes.json();
-           const contest = urlParam.get('contest')
-           const _candidate = urlParam.get('candidate')
-           router.push({
-            pathname:'/polls/payment/',
-            query:{'reference':data.response_data.reference,'amount':data.response_data.amount, 'votes':data.response_data.votes, 'email':data.response_data.email,'candidate_name':_candidate, 'contest':contest}
-           });
+    const voteApiCall= async()=>{
+
+        if(votesRef.current.value > 0){
+            const body = {'email':emailRef.current.value, 'votes':votesRef.current.value, 'candidate_id':props.id};
+    
+            const url = '/api/email_vote';
+            const option = {
+                method:'POST',
+                headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify(body)
+            }
+            const apiRes = await fetch(url,option);
+            if(apiRes.status == 200){
+            const data = await apiRes.json();
+            const contest = urlParam.get('contest')
+            const _candidate = urlParam.get('candidate')
+            router.push({
+                pathname:'/polls/payment/',
+                query:{'reference':data.response_data.reference,'amount':data.response_data.amount, 'votes':data.response_data.votes, 'email':data.response_data.email,'candidate_name':_candidate, 'contest':contest}
+            });
+            }
+            else{
+                console.error('something went wrong')
+            }
         }
         else{
-            console.error('something went wrong')
+            alert('please add a vote')
         }
+        
+    }
+    const voteHasEnded = ()=>{
+        alert('voting has ended');
+    }
+ 
+    const submitVoteEmail = async (e)=>{
+        e.preventDefault();
+        const time_left = new Date(props.count_down).getTime();
+        ifTimeRemaining(time_left, voteApiCall,voteHasEnded);
+        
     }
 
     const submitVoteCoupon = (e)=>{
@@ -85,11 +104,16 @@ export default function Candidate(props){
     }
 
     useEffect(()=>{
+
+        const time_let =new Date(props.count_down).getTime();
+        const now = new Date().getTime();
+        if((time_let-now)>0){
+            setVotingEnded(false)
+        }
         window.history.replaceState({...window.history.state, url:`/${urlParam.get('candidate')}`}, '', `${urlParam.get('candidate')}`)
 
         if(status){
             setShowMessage(true);
-            console.log(message);
         }
     
     },[])
@@ -104,7 +128,7 @@ export default function Candidate(props){
                 <img src="../../assets/icons/close-circle.svg" className="icon-3" />
             </span>
         </div>
-        <div class="candidate-page">
+        <div className="candidate-page">
             <img src={api_url+props.image_link} alt="" class="candidate-page-img"></img>
             <div class="candidate-page-details">
                 <div class="candidate-page-header">
@@ -115,36 +139,37 @@ export default function Candidate(props){
                     </div>
                 </div>
                 <div class="office">{props.office}</div>
-                <p class="candidate-page-about">{props.quote}
-                </p>
-                
-                <button class={voteCoupon?"no-display":"coupon-btn btn-shadow"} onClick={toggleVotingMode}>
+                <p class="candidate-page-about">{props.quote} </p>
+                <div className={votingEnded?"no-display":""}>
+
+                     <button class={voteCoupon?"no-display":"coupon-btn btn-shadow"} onClick={toggleVotingMode}>
                     vote with coupon
-                </button>
-                <form class={voteCoupon?"coupon-form":"no-display"} onSubmit={submitVoteCoupon}>
-                    <button class="close-coupon-vote" type="button" onClick={toggleVotingMode}>
-                    <img src="../../assets/icons/close-circle.svg" className="icon-3" />
                     </button>
-                    <input type="text" placeholder="input coupon" required ref={couponRef}/>
-                    <input type="submit" value="Vote"/>
-                    <p>click <span><Link href={'../'+poll+'/coupon-payment'}>here</Link> </span>to get coupons</p>
-                </form>
-
-                <p class={voteCoupon?'no-display':'or'}>or</p>
-
-                <form class={voteCoupon?"no-display":"select-vote-form"} method="post" onSubmit={submitVoteEmail}>
-                    <div class="select-vote-count">
-                        <button class="vote-count-btn" type="button" onClick={decreaseVotes}>
-                            <img src="/assets/icons/minus-white.svg" alt="" class="icon-2"></img>
+                    <form class={voteCoupon?"coupon-form":"no-display"} onSubmit={submitVoteCoupon}>
+                        <button class="close-coupon-vote" type="button" onClick={toggleVotingMode}>
+                        <img src="../../assets/icons/close-circle.svg" className="icon-3" />
                         </button>
-                            <input type="number" name="" id="" defaultValue={0} ref={votesRef}></input>
-                        <button class="vote-count-btn" type="button" onClick={increaseVotes}>
-                            <img src="/assets/icons/add-white.svg" alt="" class="icon-2"></img>
-                        </button>
-                    </div>
-                    <input type="email" name="" id="" placeholder="Email" ref={emailRef} required></input>
-                    <input type="submit" value="vote" class="btn-shadow"></input>
-                </form>
+                        <input type="text" placeholder="input coupon" required ref={couponRef}/>
+                        <input type="submit" value="Vote"/>
+                        <p>click <span><Link href={'../'+poll+'/coupon-payment'}>here</Link> </span>to get coupons</p>
+                    </form>
+
+                    <p class={voteCoupon?'no-display':'or'}>or</p>
+
+                    <form class={voteCoupon?"no-display":"select-vote-form"} method="post" onSubmit={submitVoteEmail}>
+                        <div class="select-vote-count">
+                            <button class="vote-count-btn" type="button" onClick={decreaseVotes}>
+                                <img src="/assets/icons/minus-white.svg" alt="" class="icon-2"></img>
+                            </button>
+                                <input type="number" name="" id="" defaultValue={0} ref={votesRef}></input>
+                            <button class="vote-count-btn" type="button" onClick={increaseVotes}>
+                                <img src="/assets/icons/add-white.svg" alt="" class="icon-2"></img>
+                            </button>
+                        </div>
+                        <input type="email" name="" id="" placeholder="Email" ref={emailRef} required></input>
+                        <input type="submit" value="vote" class="btn-shadow"></input>
+                    </form>
+                </div>   
             </div>
         </div>
         </section>

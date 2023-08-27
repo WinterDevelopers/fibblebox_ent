@@ -1,9 +1,15 @@
 import api_url from "../../../../../fecth_urls";
 import Candidate from "@/components/Candidate/Candidate_card";
+import Head from "next/head";
 
 export default function(data){
     const data_ = data.data
+    //console.log(data_)
     return<>
+        <Head>
+            <title>{data_.name} for {data_.office}</title>
+            <meta name="keyword" content="voting, polls, online content, ticketing, party, event" />
+        </Head>
         <Candidate 
             id= {data_.id}
             name = {data_.name}
@@ -11,6 +17,7 @@ export default function(data){
             votes = {data_.votes}
             office = {data_.office}
             image_link = {data_.personal_image}
+            count_down = {data_.count_down}
         />
     </>
 }

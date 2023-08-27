@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
 
@@ -44,28 +46,36 @@ def getCandidates(request,slug):
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def getPaymentRef(request):
-    print(request.data)
     data = request.data
     
     email = data['email']
     candidate_id = data['candidate_id']
     votes = data['votes']
     candidate = get_object_or_404(Candidate, id=candidate_id)
-    
-    try:
-        unfufiled_transaction = EmailPayment.objects.get(email=email, transaction_status=False)
-        if unfufiled_transaction:
-            unfufiled_transaction.delete()
+    poll = get_object_or_404(Poll, id=candidate.poll.id)
 
-    except:
-        pass
+    current_time = datetime.datetime.now()
+    poll_count_down = poll.count_down
 
-    finally:
-        new_transaction = EmailPayment.objects.create(email=email, votes=votes, candidate= candidate)
+    #check if the count_down is still valid else stop the process
+    if current_time.strftime("%s") <= poll_count_down.strftime("%s"):
 
-    res_data = {"reference":str(new_transaction.reference), "amount":str(new_transaction.amount), "votes":str(new_transaction.votes), 'email':str(new_transaction.email)}
-    return Response(res_data, 201)
+        try:
+            unfufiled_transaction = EmailPayment.objects.get(email=email, transaction_status=False)
+            if unfufiled_transaction:
+                unfufiled_transaction.delete()
 
+        except:
+            pass
+
+        finally:
+            new_transaction = EmailPayment.objects.create(email=email, votes=votes, candidate= candidate)
+
+        res_data = {"reference":str(new_transaction.reference), "amount":str(new_transaction.amount), "votes":str(new_transaction.votes), 'email':str(new_transaction.email)}
+
+        return Response(res_data, 201)
+    else:
+        return Response({}, 409)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])

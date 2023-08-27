@@ -2,10 +2,15 @@ import PollHeader from "../../components/Polls/PollHeader"
 import PollCard from "@/components/Polls/PollCard"
 import api_url from "../../../fecth_urls"
 
+import Head from "next/head"
+
 export default function polls(data){
     const data_list = data.data
-    console.log(data_list)
+    //console.log(data_list)
     return <>
+        <Head>
+            <title>Polls-Fibblebox</title>
+        </Head>
         <PollHeader></PollHeader>
         <section>
         <div class="poll-page-content">

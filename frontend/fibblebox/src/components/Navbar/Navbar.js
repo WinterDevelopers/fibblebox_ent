@@ -1,7 +1,7 @@
 import Navbaroption from "./Navbaroption"
 import NavbarSearch from "./NavbarSearch";
-
 import {toggleHambugerBtn, toggleSideBar, toggleSearchSection} from "../../functions/navbar_functions";
+
 import Link from "next/link";
 
 function Navbar(){
@@ -36,7 +36,8 @@ function Navbar(){
                     <form action="" method="get">
                         <div>
                             <input type="search" name="" id="">
-                            </input><img src="{% static 'icons/search.svg' %}" alt="" className="icon-2"></img>
+                            </input>{/* <img src="/assets/icons/search.svg
+                            " alt="" className="icon-2"></img> */}
                         </div>
                         <button>search</button>
                     </form>
