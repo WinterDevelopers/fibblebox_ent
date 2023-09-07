@@ -29,7 +29,6 @@ export default function CouponPayment(){
         e.preventDefault(); 
         const url = '/api/purchase-coupon';
         const body = {'poll_slug':poll_slug, 'email':emailRef.current.value, 'number_of_coupons':number};
-        console.log(body)
         const option={
             method:'POST',
             headers:{
@@ -49,11 +48,11 @@ export default function CouponPayment(){
     };
 
     const makePayment = async(email,amount,reference)=>{
-        console.log(reference)
+        //console.log(reference)
         if(typeof window !== 'undefined'){
             const paystack = await import("../../../../utils/Paystack_coupon");
             const resPayment = paystack.paystackInitialize(email, amount, reference);
-            console.log('hello',resPayment)
+            //console.log('hello',resPayment)
         };
     }
 

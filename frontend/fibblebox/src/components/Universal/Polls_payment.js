@@ -9,11 +9,11 @@ export default function PollsPayment(){
     const makePayment = async()=>{
         document.getElementById('make-payment').className='no-display';
         document.getElementById('payment-processing').className="vote-payment-processing";
-    /* if(typeof window !== 'undefined'){
+    if(typeof window !== 'undefined'){
         const paystack = await import("../../../utils/Paystack");
         const resPayment = paystack.paystackInitialize(email, amount, reference,candidate_name,contest);
         console.log('hello',resPayment)
-    }; */
+    };
     }
 
     return <>

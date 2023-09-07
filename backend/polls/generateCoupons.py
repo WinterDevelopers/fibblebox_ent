@@ -17,7 +17,7 @@ class CouponGenerator():
         self.email = email
         self.number_of_coupons = number_of_coupons
 
-    def generateCoupons(self,length_of_coupon=6) -> list:
+    def generateCoupons(self,length_of_coupon=7) -> list:
         #the list to store valid coupon codes
         coupon_list = []
         #if the number of coupon reaches the number of requested coupons

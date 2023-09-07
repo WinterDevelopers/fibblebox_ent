@@ -34,6 +34,7 @@ export default function TopBanner(props){
                         image_link ={x.poll_image}
                         type={'polls'}
                         name = {x.name}
+                        slug = {x.slug}
                     />
                 )
             })}           
