@@ -70,10 +70,11 @@ export default function Candidate(props){
             const data = await apiRes.json();
             const contest = urlParam.get('contest')
             const _candidate = urlParam.get('candidate')
-            router.push({
-                pathname:'/polls/payment/',
+            window.location.replace(`/polls/payment?reference=${data.response_data.reference}&amount=${data.response_data.amount}&votes=${data.response_data.votes}&email=${data.response_data.email}&contest=${contest}&candidate_name=${_candidate}`);
+            /* router.push({
+                pathname:'/polls/payment',
                 query:{'reference':data.response_data.reference,'amount':data.response_data.amount, 'votes':data.response_data.votes, 'email':data.response_data.email,'candidate_name':_candidate, 'contest':contest}
-            });
+            }); */
             }
             else{
                 console.error('something went wrong')
