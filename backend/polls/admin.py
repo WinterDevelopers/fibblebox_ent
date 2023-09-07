@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Poll,Candidate,Office,EmailPayment,VotingCoupon
+from .models import Poll,Candidate,Office,EmailPayment,VotingCoupon,CouponPayment
 
 class CandidateFormat(admin.ModelAdmin):
     list_display=('name','votes','poll')
@@ -15,3 +15,4 @@ admin.site.register(Candidate,CandidateFormat)
 admin.site.register(Office)
 admin.site.register(EmailPayment,EmailVotingFormat)
 admin.site.register(VotingCoupon)
+admin.site.register(CouponPayment)

@@ -1,4 +1,6 @@
 import Head from "next/head";
+/* import Link from "next/link";
+import { useSearchParams } from "next/navigation"; */
 import api_url from "../../../fecth_urls";
 import ifTimeRemaining from "@/functions/validate_time_left";
 import ContestOffice from "./Contest_office";
@@ -6,15 +8,17 @@ import { useRef, useEffect } from "react";
 
 
 export default function ContestHeader(props){
+    const time_left_display = useRef();
+    const countingDownDays = useRef();
+    const countingDownHours = useRef();
+    const countingDownMins = useRef();
+    const countingDownSecs = useRef();
 
-    const time_left_display = useRef()
-    const countingDownDays = useRef()
-    const countingDownHours = useRef()
-    const countingDownMins = useRef()
-    const countingDownSecs = useRef()
+    /* const urlParam = useSearchParams();
+    const poll = urlParam.get("contest"); */
 
     const offices = props.offices;
-    const offices_list = []
+    const offices_list = [];
 
     for(let a in offices){
         offices_list.push(offices[a])
@@ -58,6 +62,25 @@ export default function ContestHeader(props){
   
 
     useEffect(()=>{
+        /* if(typeof window !== undefined){
+            const coup_url = '/polls/'+poll+'/coupon-payment?cst='+props.cost+'&slg='+poll;
+            const nav_bar_options =  document.querySelector('.side-menu-content');
+            nav_bar_options.innerHTML = `
+            <div class="side-menu-item ">
+                <a href=${coup_url} >Get voting coupons</a>
+            </div>
+            <div class="side-menu-item">
+                About
+            </div>
+            <div class="side-menu-item">
+                Services
+            </div>
+            <div class="side-menu-item">
+                Contacts
+            </div>
+            `
+        } */
+
         const countingInterval = setInterval(()=>{
             let poll_count_down = new Date(props.count_down).getTime();
             ifTimeRemaining(poll_count_down,DisplayCountDown,hasEndedDisplay)
@@ -69,7 +92,7 @@ export default function ContestHeader(props){
 
     return <>
         <Head>
-            <title>{props.name}</title>
+            <title>{props.name}</title> 
             <meta name="description" content={props.info}/>
         </Head>
         <section>
@@ -127,7 +150,18 @@ export default function ContestHeader(props){
                     />
                 )
             })}
-
+            <div className="total-votes-card">
+                <div>
+                <h2>Total Votes</h2>
+                <p>{props.total_votes.toLocaleString()}</p>
+                <span>from {props.date.toLocaleString()}</span>
+                </div>
+                <div className="voting-image-container">
+                    <div>
+                        <img src="../assets/icons/vote_icon.svg" />
+                    </div>
+                </div>
+            </div>
             
         </div>
     </section>

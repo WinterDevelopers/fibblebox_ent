@@ -23,14 +23,12 @@ from .api.authentication import RegisterUserAPIView, UserDetailAPI, MyTokenObtai
 
 
 urlpatterns = [
-    path('',views.index,name='home'),
-    path('api/register', RegisterUserAPIView.as_view()),
-    path('api/user-details', UserDetailAPI.as_view()),
+    path('register', RegisterUserAPIView.as_view()),
+    path('user-details', UserDetailAPI.as_view()),
+    path('home-page-data', views.homePageData, name="home_page_data" )
 ]
 
-from rest_framework_simplejwt.views import (
-    TokenRefreshView,
-)
+from rest_framework_simplejwt.views import (TokenRefreshView,)
 urlpatterns += [
     path('api/login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

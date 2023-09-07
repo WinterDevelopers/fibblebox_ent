@@ -1,3 +1,4 @@
 .env
 env
 fibblebox/settings.py
+coupons.txt

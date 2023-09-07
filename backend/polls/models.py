@@ -7,6 +7,8 @@ import secrets
 
 # Create your models here.
 
+VOTE_COSTS = ((50,"50"),(100,"100"),(200,"200"),(500,"500"),(1000,"1000"))
+
 class Poll(models.Model):
     name = models.CharField(max_length=250,default="default text")
     slug = models.SlugField(max_length=250, unique=True)
@@ -14,7 +16,7 @@ class Poll(models.Model):
     poll_info = models.TextField(max_length=3000, null=True)
     date = models.DateField()
     location = models.CharField(max_length=50,default="default text")
-    cost = models.PositiveIntegerField(default=100)
+    cost = models.PositiveIntegerField(choices=VOTE_COSTS,default="100")
     count_down = models.DateTimeField()
 
     class Meta:
@@ -157,7 +159,7 @@ class VotingCoupon(models.Model):
         return str(self.coupon)
 
 
-class couponPayment(models.Model):
+class CouponPayment(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='poll_coupon_payment')
     number_of_coupons = models.PositiveIntegerField(null=True)
     email = models.EmailField(null=True)
@@ -169,21 +171,22 @@ class couponPayment(models.Model):
         ordering =['-id']
 
     def save(self, *args, **kwargs)->None:
+        self.amount = self.number_of_coupons * self.poll.cost
         while not self.reference:
             reference = secrets.token_urlsafe(40)
-            similiar_ref = couponPayment.objects.filter(reference=reference)
+            similiar_ref = CouponPayment.objects.filter(reference=reference)
             if not similiar_ref :
                 self.reference = reference
         super().save(*args, **kwargs)
 
     def amount_value(self) ->int:
-        amount = self.amount * 100
+        amount = self.number_of_coupons * self.poll.cost
         return amount
 
     def verified_payment(self) -> bool:
         if self.verification == False:
-            paystack = Paystack()
-            status, result = paystack.verify_payment(self.reference, self.amount_value)
+            paystack = Paystack(self.reference)
+            status, result = paystack.verifyPayment()
             
             if status:
                 if result['amount']/100 == self.amount:

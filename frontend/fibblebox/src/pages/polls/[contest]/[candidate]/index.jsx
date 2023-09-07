@@ -18,13 +18,14 @@ export default function(data){
             office = {data_.office}
             image_link = {data_.personal_image}
             count_down = {data_.count_down}
+            cost = {data_.cost}
         />
     </>
 }
 
 export async function getServerSideProps(context){
     const slug = context.query['candidate'];
-    console.log(slug)
+    //console.log(slug)
     const url = `${api_url}/polls/candidate/${slug}`;
     const apiRes = await fetch(url);
     if (apiRes.status == 200){

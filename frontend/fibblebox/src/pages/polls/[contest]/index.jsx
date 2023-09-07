@@ -11,7 +11,7 @@ export default function(data){
     };
 
     const data_ = data.data;
-
+    //console.log(data_)
     return<>
         <ContestHeader 
             key={data_.poll.id}
@@ -21,6 +21,8 @@ export default function(data){
             offices = {data_.details}
             total_votes={data_.total_votes}
             count_down = {data_.poll.count_down}
+            date = {data_.poll.date}
+            cost = {data_.poll.cost}
         />
     </>
 }
@@ -32,7 +34,7 @@ export async function getServerSideProps(context){
     const apiRes = await fetch(url);
     if (apiRes.status == 200){
         const data = await apiRes.json();
-        console.log(data)
+        //console.log(data)
         return {props:{data}}
     };
     const data = {'res':'404'};

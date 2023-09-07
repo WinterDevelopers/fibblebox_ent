@@ -2,7 +2,7 @@ import api_url from "../../../fecth_urls";
 
 export default async(req,res)=>{
     if(req.method == 'POST'){
-        const url = api_url+'/polls/coupon-payment/';
+        const url = api_url+'/polls/purchase-coupons/';
         const option = {
             method:'POST',
             headers:{
@@ -12,7 +12,7 @@ export default async(req,res)=>{
             body:JSON.stringify(req.body)
         };
         const apiRes = await fetch(url, option);
-        if (apiRes.status == 202){
+        if (apiRes.status == 201){
             const data = await apiRes.json();
             res.status(apiRes.status).json({response:data});
         }

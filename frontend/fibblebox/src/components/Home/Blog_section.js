@@ -9,7 +9,7 @@ export default function BlogSection(){
         </p>
         <div className="blog-container">
             <div className="blog-card">
-                <img src="../assets/images/chococake.jpg" alt="" className="blog-card-image"></img>
+                <img src="../assets/images/chococake.jpg" alt="" className="blog-card-image" loading="lazy"></img>
                 <h2>WHY ALWAYS CAKE</h2>
                 <p>
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit.
@@ -27,7 +27,7 @@ export default function BlogSection(){
                 </div>
             </div>
             <div className="blog-card">
-                <img src="../assets/images/chair.jpg" alt="" className="blog-card-image"></img>
+                <img src="../assets/images/chair.jpg" alt="" className="blog-card-image" loading="lazy"></img>
                 <h2>NEXT SOFA CHAIRS</h2>
                 <p>
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit.

@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import api_url from "../../../fecth_urls";
+import formatVote from "@/functions/vote_formating";
 
 
 export default function PollCard(props){
@@ -23,7 +23,7 @@ export default function PollCard(props){
                     <div className="poll-card-header">
                         <div className="poll-card-header-text">{props.name}</div>
                         <div>
-                            <p className="poll-card-header-num">{props.total_votes}</p>
+                            <p className="poll-card-header-num">{formatVote(props.total_votes)}</p>
                             <div>votes</div>
                         </div>
                     </div>

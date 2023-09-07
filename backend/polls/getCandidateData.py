@@ -17,6 +17,7 @@ class CandidateData():
 
         response_data = serialized_candidates.data
         response_data['office']=office.office_name
+        response_data['cost'] = poll.cost
         response_data['count_down'] = poll.count_down
 
         return response_data

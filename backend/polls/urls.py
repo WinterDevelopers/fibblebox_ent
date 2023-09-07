@@ -21,5 +21,8 @@ urlpatterns = [
     path('<slug:slug>', views.getPollPage, name='poll_page'),
     path('candidate/<slug:slug>', views.getCandidates, name='candidate-page'),
     path('create-payment/', views.getPaymentRef, name='create-payment-ref'),
-    path('email-payment/', views.emailPaymentVerification, name='email-payment-page')
+    path('email-payment/', views.emailPaymentVerification, name='email-payment-page'),
+    path('purchase-coupons/', views.couponPayment, name="purchase-coupons"),
+    path('coupon-payment/', views.couponPaymentVerification, name="coupon-payment"),
+    path('coupon-vote/', views.couponVoting, name="coupon-voting"),
 ]

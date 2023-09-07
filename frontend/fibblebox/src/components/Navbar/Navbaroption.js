@@ -7,7 +7,7 @@ function Navbaroption(){
         <section className="no-display slide-in-sections" id="mobile-side-bar">
             <div className="side-menu-content">
                 <div className="side-menu-item ">
-                    Home
+                    Home Page
                 </div>
                 <div className="side-menu-item">
                     About

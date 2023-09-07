@@ -41,9 +41,11 @@ export default function Candidate(props){
     }
 
     const router = useRouter();
-    const urlParam = useSearchParams()
+    const urlParam = useSearchParams();
+  
 
     let poll = urlParam.get('contest');
+    let candidate = urlParam.get('candidate');
     let status = urlParam.get('status');
     let message = urlParam.get('vtes');
     
@@ -82,6 +84,26 @@ export default function Candidate(props){
         }
         
     }
+
+    const couponApiVote = async()=>{
+        const url = "/api/coupon_vote/"
+        const body ={"coupon":couponRef.current.value,"candidate_id":props.id,"poll_slug":poll}
+        const option = {
+            method:"POST",
+            headers:{
+                "Accept":"application/json",
+                "Content-Type":"application/json",
+            },
+            body:JSON.stringify(body),
+        };
+        const apiRes = await fetch(url, option);
+        if(apiRes.status == 202){
+            window.location.replace(`/polls/${poll.toLowerCase()}/${candidate.toLowerCase()}?vtes=Your vote has been successfully added!!!&status=success`)
+        }
+        else{
+            window.location.replace(`/polls/${poll.toLowerCase()}/${candidate.toLowerCase()}?vtes=Opps and error occurred!!!&status=error`)
+        }
+    }
     const voteHasEnded = ()=>{
         alert('voting has ended');
     }
@@ -94,9 +116,10 @@ export default function Candidate(props){
     }
 
     const submitVoteCoupon = (e)=>{
-        e.preventDefault()
-        const body = { 'coupon':couponRef.current.value, 'candidate_id':props.id}
-        console.log(body)
+        document.querySelector("#coupon-submit").disabled = false;
+        e.preventDefault();
+        const time_left = new Date(props.count_down).getTime();
+        ifTimeRemaining(time_left, couponApiVote, voteHasEnded);
     }
 
     const closeMessage = ()=>{
@@ -119,8 +142,8 @@ export default function Candidate(props){
     },[])
     return <>
         <section>
-        <div class="nav-bar-caution"></div>
-        <div class={showMessage?`${status}-message`:'no-display'}>
+        <div className="nav-bar-caution"></div>
+        <div className={showMessage?`${status}-message`:'no-display'}>
             <span>
                {message}
             </span>
@@ -129,45 +152,47 @@ export default function Candidate(props){
             </span>
         </div>
         <div className="candidate-page">
-            <img src={api_url+props.image_link} alt="" class="candidate-page-img"></img>
-            <div class="candidate-page-details">
-                <div class="candidate-page-header">
+            <img src={api_url+props.image_link} alt="" className="candidate-page-img"></img>
+            <div className="candidate-page-details">
+                <div className="candidate-page-header">
                     <h1>{props.name}</h1>
                     <div>
-                        <h4>{props.votes}</h4>
+                        <h4>{props.votes.toLocaleString()}</h4>
                         <p>votes</p>
                     </div>
                 </div>
-                <div class="office">{props.office}</div>
-                <p class="candidate-page-about">{props.quote} </p>
+                <div className="office">{props.office}</div>
+                <p className="candidate-page-about">{props.quote} </p>
                 <div className={votingEnded?"no-display":""}>
 
-                     <button class={voteCoupon?"no-display":"coupon-btn btn-shadow"} onClick={toggleVotingMode}>
+                     <button className={voteCoupon?"no-display":"coupon-btn btn-shadow"} onClick={toggleVotingMode}>
                     vote with coupon
                     </button>
-                    <form class={voteCoupon?"coupon-form":"no-display"} onSubmit={submitVoteCoupon}>
-                        <button class="close-coupon-vote" type="button" onClick={toggleVotingMode}>
+                    <form className={voteCoupon?"coupon-form":"no-display"} onSubmit={submitVoteCoupon}>
+                        <button className="close-coupon-vote" type="button" onClick={toggleVotingMode}>
                         <img src="../../assets/icons/close-circle.svg" className="icon-3" />
                         </button>
                         <input type="text" placeholder="input coupon" required ref={couponRef}/>
-                        <input type="submit" value="Vote"/>
-                        <p>click <span><Link href={'../'+poll+'/coupon-payment'}>here</Link> </span>to get coupons</p>
+                        <input id="coupon-submit" type="submit" value="Vote"/>
+                        <p>click <span><Link href={{pathname:'../'+poll+'/coupon-payment',
+                                                    query:{cst:props.cost,slg:poll}}}>here</Link>
+                                </span>to get coupons</p>
                     </form>
 
-                    <p class={voteCoupon?'no-display':'or'}>or</p>
+                    <p className={voteCoupon?'no-display':'or'}>or</p>
 
-                    <form class={voteCoupon?"no-display":"select-vote-form"} method="post" onSubmit={submitVoteEmail}>
-                        <div class="select-vote-count">
-                            <button class="vote-count-btn" type="button" onClick={decreaseVotes}>
-                                <img src="/assets/icons/minus-white.svg" alt="" class="icon-2"></img>
+                    <form className={voteCoupon?"no-display":"select-vote-form"} method="post" onSubmit={submitVoteEmail}>
+                        <div className="select-vote-count">
+                            <button className="vote-count-btn" type="button" onClick={decreaseVotes}>
+                                <img src="/assets/icons/minus-white.svg" alt="" className="icon-2"></img>
                             </button>
                                 <input type="number" name="" id="" defaultValue={0} ref={votesRef}></input>
-                            <button class="vote-count-btn" type="button" onClick={increaseVotes}>
-                                <img src="/assets/icons/add-white.svg" alt="" class="icon-2"></img>
+                            <button className="vote-count-btn" type="button" onClick={increaseVotes}>
+                                <img src="/assets/icons/add-white.svg" alt="" className="icon-2"></img>
                             </button>
                         </div>
                         <input type="email" name="" id="" placeholder="Email" ref={emailRef} required></input>
-                        <input type="submit" value="vote" class="btn-shadow"></input>
+                        <input type="submit" value="vote" className="btn-shadow"></input>
                     </form>
                 </div>   
             </div>

@@ -7,12 +7,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from .models import Poll, Candidate, EmailPayment
+from .models import Poll, Candidate, EmailPayment,CouponPayment, VotingCoupon
 from .serializers import PollsSerializers
 from .getPollPageData import PollData
 from .getCandidateData import CandidateData
-
-from .coupon_generator import CouponGenerator
+from .generateCoupons import CouponGenerator
 
 # Create your views here.
 @api_view(["GET"])
@@ -98,11 +97,78 @@ def emailPaymentVerification(request):
         return Response(response_data, 202)
 
     else:
-        return Response('failed',500)
+        return Response('failed',400)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def couponPayment(request):
-
     data = request.data
-    
+    email = data['email']
+    poll_slug = data['poll_slug']
+    number_of_coupons = data['number_of_coupons']
+    poll = get_object_or_404(Poll, slug=poll_slug)
+    try:
+        #check if the email has unfufilled order and then delete as we would create another
+        unfufiled_purchase = CouponPayment.objects.get(email=email, verification=False)
+
+        if unfufiled_purchase:
+            unfufiled_purchase.delete()
+
+    except:
+        pass
+
+    finally:
+        new_coupon_purchase = CouponPayment.objects.create(email=email,number_of_coupons=number_of_coupons,poll=poll)
+
+    res_data = {'reference':str(new_coupon_purchase.reference),'amount':str(new_coupon_purchase.amount)}
+    return Response(res_data,201)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def couponPaymentVerification(request):
+    data = request.data
+    reference = data['reference']
+    coupon_payment_query = get_object_or_404(CouponPayment, reference=reference)
+    #verify the payment from the verification method in our model Class
+    coupon_payment_verification = coupon_payment_query.verified_payment()
+
+    if coupon_payment_verification:
+        #then generate the codes and send
+        generate_coupon = CouponGenerator(coupon_payment_query.poll, coupon_payment_query.email,coupon_payment_query.number_of_coupons)
+
+        list_of_coupons = generate_coupon.generateCoupons()
+
+        create_coupon_file = generate_coupon.couponListToFile(list_of_coupons)
+
+        if create_coupon_file:
+            generate_coupon.sendCouponFIle()
+
+        return Response(True, 202)
+    else:
+        return Response(False, 400)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def couponVoting(request):
+    data = request.data
+    candidate_id = data["candidate_id"]
+    poll_slug = data["poll_slug"]
+    coupon = data["coupon"]
+
+    coupon_exist = get_object_or_404(VotingCoupon, coupon=coupon)
+
+    poll = get_object_or_404(Poll, slug=poll_slug)
+
+    if coupon_exist.used == False and coupon_exist.poll == poll:
+        candidate = get_object_or_404(Candidate, id=candidate_id)
+        candidate.votes += 1
+        candidate.save()
+        coupon_exist.used = True
+        coupon_exist.time_used = datetime.datetime.now()
+        coupon_exist.save()
+
+        return Response({},202)
+    else:
+        return Response({},403)
+        

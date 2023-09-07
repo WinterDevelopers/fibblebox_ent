@@ -7,7 +7,9 @@ export default function(){
             <section className="search-results-page">
                 <h5>Avaliable Results</h5>
                 {/* <div style="width:3rem;height:0.2rem;background-color: rgb(10, 10, 10); position: relative;top:-0.5rem; border-radius:0.1rem;margin-bottom: 3rem;"></div>
-                 */}<div className="product-item-container search-items" id='search-results'>
+                 */}
+                <div className="product-item-container search-items" id='search-results'>
+                    knock knock
                 </div> 
             </section>
         </section>
