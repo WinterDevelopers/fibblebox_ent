@@ -889,10 +889,13 @@ display: flex;
   padding-top:5rem;
 }
 .success-message{
-  max-width:85%;
-  margin: 1rem auto;
-  margin-top:1.5rem;
-  padding: 0.7rem 0.7rem;
+  position: fixed;
+  z-index:4;
+  top:5rem;
+  left:5%;
+  right:auto;
+  width:85%;
+  padding: 1rem 2.5%;
   color:#00b612;
   font-weight: 300;
   font-size: small;
@@ -905,14 +908,55 @@ display: flex;
 
 }
 .error-message{
-  max-width:85%;
-  margin: 1rem auto;
-  padding: 0.7rem 0.7rem;
+  position: fixed;
+  z-index:4;
+  top:5rem;
+  left:5%;
+  right:auto;
+  width:85%;
+  padding: 0.7rem 2.5%;
   color:#e20000;
   font-weight: 300;
   font-size: small;
   background-color: #fcc8c8;
   border: solid 0.05rem #e20000;
+  border-radius:1rem ;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.warning-message{
+  position: fixed;
+  z-index:4;
+  top:5rem;
+  left:5%;
+  right:auto;
+  width:85%;
+  padding: 0.7rem 2.5%;
+  color:#ff7700;
+  font-weight: 300;
+  font-size: small;
+  background-color: #ffe8c9;
+  border: solid 0.05rem #ff7700;
+  border-radius:1rem ;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.info-message{
+  position: fixed;
+  z-index:4;
+  top:5rem;
+  left:5%;
+  right:auto;
+  width:85%;
+  padding: 0.7rem 2.5%;
+  margin: 1rem auto;
+  color:#2f00ff;
+  font-weight: 300;
+  font-size: small;
+  background-color: #d3e2ff;
+  border: solid 0.05rem #2f00ff;
   border-radius:1rem ;
   display: flex;
   flex-direction: row;

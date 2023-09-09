@@ -1,6 +1,7 @@
 import Link from "next/link";
 import api_url from "../../../fecth_urls";
 import ifTimeRemaining from "@/functions/validate_time_left";
+import notification_message from "@/functions/message_function";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import {useSearchParams} from "next/navigation";
@@ -123,10 +124,6 @@ export default function Candidate(props){
         ifTimeRemaining(time_left, couponApiVote, voteHasEnded);
     }
 
-    const closeMessage = ()=>{
-        setShowMessage(false)
-    }
-
     useEffect(()=>{
 
         const time_let =new Date(props.count_down).getTime();
@@ -136,22 +133,22 @@ export default function Candidate(props){
         }
         window.history.replaceState({...window.history.state, url:`/${urlParam.get('candidate')}`}, '', `${urlParam.get('candidate')}`)
 
-        if(status){
-            setShowMessage(true);
+        if(status && message){
+            notification_message(status, message)
         }
     
     },[])
     return <>
         <section>
         <div className="nav-bar-caution"></div>
-        <div className={showMessage?`${status}-message`:'no-display'}>
+       {/*  <div className={showMessage?`${status}-message`:'no-display'}>
             <span>
                {message}
             </span>
             <span onClick={closeMessage}>
                 <img src="../../assets/icons/close-circle.svg" className="icon-3" />
             </span>
-        </div>
+        </div> */}
         <div className="candidate-page">
             <img src={api_url+props.image_link} alt="" className="candidate-page-img"></img>
             <div className="candidate-page-details">

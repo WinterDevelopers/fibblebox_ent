@@ -76,6 +76,15 @@ def getPaymentRef(request):
     else:
         return Response({}, 409)
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def verifyReference(request, ref):
+    ref_exist = get_object_or_404(EmailPayment, reference=ref, transaction_status=False)
+    if ref_exist:
+        return Response({}, 200)
+    else:
+        return Response({},409)
+        
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def emailPaymentVerification(request):

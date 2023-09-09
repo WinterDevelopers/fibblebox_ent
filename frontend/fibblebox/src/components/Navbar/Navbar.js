@@ -50,6 +50,7 @@ function Navbar(){
         </section>
         <Navbaroption></Navbaroption>
         <NavbarSearch></NavbarSearch>
+        <div id="message-container"></div>
         </>)
 }
 

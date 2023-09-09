@@ -1,4 +1,5 @@
 import {useRouter} from "next/router";
+import notification_message from "@/functions/message_function";
 
 
 export default function PollsPayment(){
@@ -9,11 +10,29 @@ export default function PollsPayment(){
     const makePayment = async()=>{
         document.getElementById('make-payment').className='no-display';
         document.getElementById('payment-processing').className="vote-payment-processing";
-    if(typeof window !== 'undefined'){
-        const paystack = await import("../../../utils/Paystack");
-        const resPayment = paystack.paystackInitialize(email, amount, reference,candidate_name,contest);
-        console.log('hello',resPayment)
-    };
+
+        const url = '/api/verify-reference/';
+        const body = {"ref":reference};
+        const option = {
+            method:"POST",
+            headers:{
+                "Accept":"application/json",
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(body)
+        }
+        const apiRes = await fetch(url,option)
+        if (apiRes.status == 200){
+            if(typeof window !== 'undefined'){
+                const paystack = await import("../../../utils/Paystack");
+                const resPayment = paystack.paystackInitialize(email, amount, reference,candidate_name,contest);
+                console.log('hello',resPayment)
+            }
+        }
+        else{
+            notification_message("warning", "we could not verify your reference pls go back to your candidate page and vote again. Thank you")
+        }
+        
     }
 
     return <>

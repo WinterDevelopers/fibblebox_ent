@@ -25,4 +25,5 @@ urlpatterns = [
     path('purchase-coupons/', views.couponPayment, name="purchase-coupons"),
     path('coupon-payment/', views.couponPaymentVerification, name="coupon-payment"),
     path('coupon-vote/', views.couponVoting, name="coupon-voting"),
+    path('verify-reference/<slug:ref>', views.verifyReference, name="verify-reference"),
 ]
