@@ -891,7 +891,7 @@ display: flex;
 .success-message{
   position: fixed;
   z-index:4;
-  top:5rem;
+  top:6rem;
   left:5%;
   right:auto;
   width:85%;
@@ -910,7 +910,7 @@ display: flex;
 .error-message{
   position: fixed;
   z-index:4;
-  top:5rem;
+  top:6rem;
   left:5%;
   right:auto;
   width:85%;
@@ -928,7 +928,7 @@ display: flex;
 .warning-message{
   position: fixed;
   z-index:4;
-  top:5rem;
+  top:6rem;
   left:5%;
   right:auto;
   width:85%;
@@ -946,7 +946,7 @@ display: flex;
 .info-message{
   position: fixed;
   z-index:4;
-  top:5rem;
+  top:6rem;
   left:5%;
   right:auto;
   width:85%;
