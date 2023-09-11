@@ -25,7 +25,8 @@ from .api.authentication import RegisterUserAPIView, UserDetailAPI, MyTokenObtai
 urlpatterns = [
     path('register', RegisterUserAPIView.as_view()),
     path('user-details', UserDetailAPI.as_view()),
-    path('home-page-data', views.homePageData, name="home_page_data" )
+    path('home-page-data', views.homePageData, name="home_page_data" ),
+    path('search', views.SearchListView.as_view(), name="search"),
 ]
 
 from rest_framework_simplejwt.views import (TokenRefreshView,)

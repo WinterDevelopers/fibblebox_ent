@@ -5,7 +5,7 @@ import { useEffect } from "react"
 export default function PollHeader(){
     
     useEffect(()=>{
-        notification_message('success','Testing the code let us see how this would end if at the final moment time does not wait')
+        //notification_message('success','Testing the code let us see how this would end if at the final moment time does not wait')
     },[])
     
     return <>

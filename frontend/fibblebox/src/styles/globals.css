@@ -1158,6 +1158,45 @@ display: flex;
   color: white;
   padding:1rem 0rem;
 }
+.navbar-search-results{
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top:8rem;
+  background-color: white;
+  width:90%;
+  padding:2.5%;
+  border-radius:1rem;
+  margin: 0rem 2.5%;
+  z-index:4;
+  box-shadow: #777777c7 1px 2px 15px;
+}
+.navbar-search-results button{
+  height: fit-content;
+  color: white;
+  background-color: #000;
+  padding:0.5rem;
+  border:none;
+  border-radius:0.3rem;
+}
+.search-result{
+  display: flex;
+  margin: 2.5rem 0rem;
+}
+.search-result h4{
+  margin: 0rem 1rem;
+  margin-right:0rem;
+}
+.search-result p{
+  color: #424242;
+  margin: 0rem;
+}
+.search-result span{
+  font-size: large;
+  margin:0rem 0.5rem;
+  font-weight: 200;
+  width:fit-content;
+}
 @media only screen and (max-width:800px){
   .office-contender-card{
     margin: 0rem auto;
@@ -1318,8 +1357,12 @@ display: flex;
       from{transform: translateX(0vw);}to{transform: translateX(100vw)}
   }
   .side-menu-content{
-      display: block;
-      padding:3rem 0rem;
+    display: block;
+    padding:3rem 0rem;
+  }
+  .side-menu-content a{
+    text-decoration: none;
+    color:black;
   }
   .side-menu-item{
       padding:1.5rem 1rem;
@@ -1373,4 +1416,5 @@ display: flex;
   .time-left{
     width:60%;
   }
+
 }
