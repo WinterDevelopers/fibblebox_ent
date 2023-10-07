@@ -5,6 +5,8 @@ import { useRef } from "react";
 
 import {toggleHambugerBtn, toggleSideBar, toggleSearchSection} from "../../functions/navbar_functions";
 
+import { useSelector } from "react-redux";
+
 import Link from "next/link";
 
 function Navbar(){
@@ -58,6 +60,8 @@ function Navbar(){
         }
     }
     
+    const {name} = useSelector((state)=>state.userData);
+
     return(
         <>
         <section id="navbar" className="navbar">
@@ -83,8 +87,14 @@ function Navbar(){
                     <a href="/about">About</a>
                     </div>
                     <div>
-                        Support
-                    </div>
+                        Services
+                    </div>  
+                </div>
+                <div className="nav-option-user no-display-mini">
+                    <Link href={name?"/profile":"/login"} >
+                        <img src="/assets/icons/user-icon.svg"/>
+                        <p>{name?name:"Login"}</p>
+                    </Link>
                 </div>
                 <div className="nav-search no-display-mini">
                     <form  method="post" onSubmit={search}>

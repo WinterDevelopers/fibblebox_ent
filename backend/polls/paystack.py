@@ -20,9 +20,9 @@ class Paystack():
         response = requests.get(url,headers=headers)
         if response.status_code == 200:
             response_data = response.json()
-            print(response_data)
+            #print(response_data)
             return response_data['status'],response_data['data']
 
         response_data = response.json()
-        print(response_data)
+        #print(response_data)
         return response_data['status'],response_data['message']

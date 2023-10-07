@@ -35,7 +35,7 @@ async function verifyPayment (reference){
         body:JSON.stringify(body)
     }
     const apiRes = await fetch(url, options);
-    console.log(apiRes)     
+    //console.log(apiRes)     
     if(apiRes.status == 202){
         const res_data = await apiRes.json();
         /* const {votes} = res_data.data; */

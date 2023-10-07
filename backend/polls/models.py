@@ -46,7 +46,7 @@ class Poll(models.Model):
         return self.name
 
 class Office(models.Model):
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='poll_office')
+    poll = models.ForeignKey(Poll, on_delete=models.SET_NULL, related_name='poll_office', null=True)
     office_name = models.CharField(max_length=200)
 
     @property
@@ -62,8 +62,8 @@ class Office(models.Model):
         return str(self.poll)+' office:'+str(self.office_name)
 
 class Candidate(models.Model):
-    poll =  models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='poll_candidate', null=True)
-    office = models.ForeignKey(Office, on_delete=models.CASCADE, related_name='candidate_office', null=True)
+    poll =  models.ForeignKey(Poll, on_delete=models.SET_NULL, related_name='poll_candidate', null=True)
+    office = models.ForeignKey(Office, on_delete=models.SET_NULL, related_name='candidate_office', null=True)
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=150, null=True)
     quote = models.CharField(max_length=250)
@@ -98,7 +98,7 @@ class Candidate(models.Model):
 
 
 class EmailPayment(models.Model):
-    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, null=True)
+    candidate = models.ForeignKey(Candidate, on_delete=models.SET_NULL, null=True)
     votes = models.PositiveIntegerField()
     amount = models.PositiveIntegerField(null=True)
     email = models.EmailField(null=True)
@@ -150,7 +150,7 @@ class EmailPayment(models.Model):
 
 
 class VotingCoupon(models.Model):
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='poll_coupon', null=True)
+    poll = models.ForeignKey(Poll, on_delete=models.SET_NULL, related_name='poll_coupon', null=True)
     coupon = models.CharField(max_length=30)
     used = models.BooleanField(default=False)
     time_used = models.DateTimeField(null=True)
@@ -160,7 +160,7 @@ class VotingCoupon(models.Model):
 
 
 class CouponPayment(models.Model):
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='poll_coupon_payment')
+    poll = models.ForeignKey(Poll, on_delete=models.SET_NULL, related_name='poll_coupon_payment', null=True)
     number_of_coupons = models.PositiveIntegerField(null=True)
     email = models.EmailField(null=True)
     amount = models.PositiveIntegerField(null=True)

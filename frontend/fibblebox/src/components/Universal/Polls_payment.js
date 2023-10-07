@@ -1,15 +1,17 @@
 import {useRouter} from "next/router";
-import notification_message from "@/functions/message_function";
+import { useState } from "react";
 
+import notification_message from "@/functions/message_function";
+import dontSubmit from "@/functions/formDontSubmit";
 
 export default function PollsPayment(){
-    
+    const [loading,setLoading] = useState(false);
+
     const router = useRouter()
     const {reference, votes, amount, email, candidate_name, contest} = router.query;
 
     const makePayment = async()=>{
-        document.getElementById('make-payment').className='no-display';
-        document.getElementById('payment-processing').className="vote-payment-processing";
+        setLoading(true);
 
         const url = '/api/verify-reference/';
         const body = {"ref":reference};
@@ -30,6 +32,7 @@ export default function PollsPayment(){
             }
         }
         else{
+            setLoading(false)
             notification_message("warning", "we could not verify your reference pls go back to your candidate page and vote again. Thank you")
         }
         
@@ -41,10 +44,7 @@ export default function PollsPayment(){
                 <p>{votes} votes for {candidate_name} would cost</p>
                 <div class="payment-amout">N {amount}.00</div>
             </div>
-
-            <div class="candidate-vote-payment-button btn-shadow" id="make-payment" onClick={makePayment}>make payment</div>
-            <div id="payment-processing" className="no-display">Please wait your payment is proccessing ... <img className="button-loader" src="/assets/loaders/button_loader.svg"/></div>
-
+            <div class="candidate-vote-payment-button btn-shadow" id="make-payment" onClick={loading?dontSubmit:makePayment}>{loading?<img className="button-loader" src="/assets/loaders/button_loader.svg"/>:'Make payment' }</div>
         </section>
     </> 
 }

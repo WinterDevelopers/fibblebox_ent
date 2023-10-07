@@ -1,0 +1,11 @@
+{% autoescape off %}
+
+Hello {{user.username}},
+
+Please A link to reset your password is below and if you did not request this please notify us and don't click the link
+
+http://{{domain}}/reset-forgotten-password?uid={{uid}}&token={{token}}
+
+Thanks!!!
+
+{% endautoescape %}

@@ -2,3 +2,4 @@
 env
 fibblebox/settings.py
 coupons.txt
+db.sqlite4

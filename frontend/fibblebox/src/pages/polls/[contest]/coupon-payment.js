@@ -1,6 +1,7 @@
 import { useSearchParams } from "next/navigation";
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect } from "react";
 
+import dontSubmit from "@/functions/formDontSubmit";
 
 
 export default function CouponPayment(){
@@ -25,7 +26,6 @@ export default function CouponPayment(){
 
     const makePurchase = async(e)=>{
         setLoading(true);
-        document.querySelector(".coupon-purchase").disabled = true;
         e.preventDefault(); 
         const url = '/api/purchase-coupon';
         const body = {'poll_slug':poll_slug, 'email':emailRef.current.value, 'number_of_coupons':number};
@@ -44,7 +44,9 @@ export default function CouponPayment(){
             const data_obj = data.response;
             await makePayment(emailRef.current.value, data_obj['amount'], data_obj['reference'])
         }
+        else{
 
+        }
     };
 
     const makePayment = async(email,amount,reference)=>{
@@ -73,9 +75,9 @@ export default function CouponPayment(){
                     </button>
                 </div>
                 <p>This would cost <span>{number*cost}</span></p>
-                <form className="coupon-generator-form" onSubmit={makePurchase} >
+                <form className="coupon-generator-form" onSubmit={loading?dontSubmit:makePurchase} >
                     <input ref={emailRef} type="email" placeholder="Add email to receive coupons" required />
-                    <button  className="coupon-purchase">{loading?<img className="button-loader" src="/assets/loaders/button_loader.svg"/>:'Make purchase' }</button>
+                    <button  className="">{loading?<img className="button-loader" src="/assets/loaders/button_loader.svg"/>:'Make purchase' }</button>
                 </form>
             </div>
         </section>

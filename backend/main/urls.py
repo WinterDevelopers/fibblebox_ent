@@ -15,24 +15,23 @@ from django.urls import path, include
 from django.urls import path, re_path
 from django.views.generic.base import TemplateView
 
+from rest_framework_simplejwt.views import TokenRefreshView
 
 #from views
 from .import views
-from .api.authentication import RegisterUserAPIView, UserDetailAPI, MyTokenObtainPairView
 
-
+app_name = "main"
 
 urlpatterns = [
-    path('register', RegisterUserAPIView.as_view()),
-    path('user-details', UserDetailAPI.as_view()),
+    path('register-user', views.ResgisterUser.as_view(), name="register_name" ),
+    path('login', views.LoginUser.as_view(), name="login"),
+    path('refresh', TokenRefreshView.as_view(), name="refresh"),
+    path('change-password', views.changePassword, name="change_password"),
+    path('recover-forgotten-password', views.sendForgottenPassword, name="recover_forgotten_password"),
+    path("reset-frogotten-password", views.resetForgottenPassword, name="reset_forgotten_password"),
+    path("verify-reset-forgotten-password/<slug:uidb64>/<slug:token>/", views.verifyResetForgottenPassword, name="verify_reset_forgotten_password"),
+    path('user-details', views.userDetails, name="user_details"),
+    path('activate/<slug:uidb64>/<slug:token>/', views.activateEmail, name="activate"),
     path('home-page-data', views.homePageData, name="home_page_data" ),
     path('search', views.SearchListView.as_view(), name="search"),
-]
-
-from rest_framework_simplejwt.views import (TokenRefreshView,)
-urlpatterns += [
-    path('api/login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
-    re_path(r"^verify-email/(?P<key>[-:\w]+)/$",TemplateView.as_view(),name="account_confirm_email",),
 ]
