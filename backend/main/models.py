@@ -7,7 +7,7 @@ from datetime import date
 class CustomUser(AbstractUser):
     STATUS = (('customer', 'customer'),('staff','staff'), ('admin', 'admin'))
                   
-    username = models.CharField(max_length = 50, blank = True, null = True, unique = True)
+    username = models.CharField(max_length = 50,null = True, unique = True)
     email = models.EmailField(unique=True,null = True)
     status = models.CharField(max_length=50, default='customer',choices=STATUS)
     email_verification = models.BooleanField(default=False)
