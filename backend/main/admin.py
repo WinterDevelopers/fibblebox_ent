@@ -16,7 +16,7 @@ class CustomerUserAdmin(BaseUserAdmin):
 
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         
-        (_('user_info'), {'fields': ('username','email_verification')}),
+        (_('user_info'), {'fields': ('username')}),
         )
                 
     add_fieldsets = (
@@ -25,7 +25,7 @@ class CustomerUserAdmin(BaseUserAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-    list_display = ['email', 'first_name', 'last_name', 'email_verification']
+    list_display = ['email', 'first_name', 'last_name']
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email', )
 
