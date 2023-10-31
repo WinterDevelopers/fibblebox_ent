@@ -912,7 +912,7 @@ display: flex;
   color:#00b612;
   font-weight: 500;
   font-size: small;
-  background: #d8ffca;
+  background: #eeffe8;
   border: solid 0.05rem #00b612;
   border-radius:1rem ;
   display: flex;
@@ -932,7 +932,7 @@ display: flex;
   color:#e20000;
   font-weight: 500;
   font-size: small;
-  background-color: #fcc8c8;
+  background-color: #ffe3e3;
   border: solid 0.05rem #e20000;
   border-radius:1rem ;
   display: flex;
@@ -951,7 +951,7 @@ display: flex;
   color:#ff7700;
   font-weight: 300;
   font-size: small;
-  background-color: #ffe8c9;
+  background-color: #fff1de;
   border: solid 0.05rem #ff7700;
   border-radius:1rem ;
   display: flex;
@@ -970,7 +970,7 @@ display: flex;
   color:#2f00ff;
   font-weight:500;
   font-size: small;
-  background-color: #d3e2ff;
+  background-color: #e0ebff;
   border: solid 0.05rem #2f00ff;
   border-radius:1rem ;
   display: flex;
@@ -1539,6 +1539,164 @@ display: flex;
   background-color:rgb(0, 0, 0);
   color:white;
   margin-bottom:1rem;
+}
+.create-poll-container{
+  width:20rem;
+  margin: 2rem auto;
+  margin-top: 7rem;
+  position: relative;
+}
+.create-poll-checkpoint{
+  width:80%;
+  height:2px;
+  background-color: rgb(228, 243, 255);
+  margin: 0.5rem auto;
+}
+.checkpoint-circle-container{
+  width:80%;
+  display:flex;
+  justify-content:space-between;
+  position: absolute;
+  top:-0.7rem;
+  left: 10%;
+
+}
+.checkpoint-circle{
+  width: 1.5rem;
+  height: 1.4rem;
+  padding-top:0.1rem;
+  border-radius:50%;
+  background-color: #e9e9e9;
+  color: white;
+  text-align: center;
+}
+.create-poll-step{
+  width: 80%;
+  padding:2%;
+  margin: 4rem auto;
+  background-color:rgb(255, 255, 255);
+  border-radius:1.2rem;
+  box-shadow: 1px 2px 10px rgba(204, 204, 204, 0.644);
+}
+.create-poll-step h3{
+  text-align: center;
+  margin: 0.5rem 0rem;
+}
+.create-poll-step input{
+  border: none;
+  width: 76%;
+  background-color: #eeeeee;
+  padding: 1rem;
+  border-radius:0.3rem;
+  margin:1rem;
+}
+.create-poll-step button{
+  width:88%;
+  margin:1.4rem 7%;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  font-size:medium;
+  border: none;
+  padding:1rem 0.8rem;
+  border-radius:0.3rem;
+}
+.create-poll-step label{
+  padding-left:7%;
+  color: #868686;
+  font-size:smaller;
+}
+.create-poll-step select{
+  border: none;
+  width: 88%;
+  background-color: #ffffff;
+  box-shadow: 1px 2px 10px rgba(214, 214, 214, 0.575);
+  padding: 1rem;
+  border-radius:0.3rem;
+  margin:1rem;
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+  background-image: url("/assets/icons/arrow-short-down.svg");
+  background-repeat: no-repeat;
+  background-size:2rem 2rem;
+  background-position:95% 0.5rem;
+}
+.creat-poll-option-date{
+  width: 88%;
+  box-shadow: 1px 2px 10px rgba(214, 214, 214, 0.575);
+  padding: 1rem;
+}
+.creat-poll-option-date::-webkit-calendar-picker-indicator{
+  display: block;
+  appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  background:url("/assets/icons/calendar.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity:1;
+  border-width:thin;
+  
+}
+.creat-poll-option-time{
+  width: 88%;
+  box-shadow: 1px 2px 10px rgba(214, 214, 214, 0.575);
+  padding: 1rem;
+}
+.creat-poll-option-time::-webkit-calendar-picker-indicator{
+  appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  background:url("/assets/icons/timer.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity:1;
+  border-width:thin;
+}
+.creat-poll-option-file{
+  margin-left:0rem;
+  color: #888888;
+  width: 95%;
+}
+.creat-poll-option-file::-webkit-file-upload-button{
+  background-color: #406970;
+  box-shadow: 1px 2px 10px rgba(214, 214, 214, 0.575);
+  padding:0.5rem;
+  width:6.5rem;
+  color:white;
+  height:2.5rem;
+  border:none;
+  border-radius: 0.5rem;
+}
+.activate-poll>h4{
+  margin-top:2rem;
+  margin-left:10%;
+}
+.activate-poll>p{
+  font-size: smaller;
+  color: #2b2b2b;
+  inline-size:80%;
+  margin: 0.2rem auto;
+}
+.activate-poll>form>div{
+  padding: 1rem 1.5rem;
+  width:10rem;
+  margin:2rem auto;
+  border-radius:0.5rem;
+  box-shadow: 1px 2px 10px rgba(214, 214, 214, 0.575);
+  text-align: center;
+}
+.activate-poll>form>div input{
+  margin:0rem auto;
+}
+.activate-poll>form>div>p{
+  margin-top:0rem;
+}
+.activate-poll>form>div>h2{
+  color: #0094FF;
+}
+.finally-create-poll p{
+  inline-size:80%;
+  margin: 1rem auto;
 }
 @media only screen and (max-width:800px){
   .office-contender-card{

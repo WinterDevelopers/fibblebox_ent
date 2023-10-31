@@ -31,7 +31,7 @@ export default function Login(){
         setLoading(true);
         e.preventDefault();
         const url = '/api/login';
-        const body = {"email":email.current.value, "password":password.current.value}
+        const body = {"email":email.current.value.toLowerCase(), "password":password.current.value}
         const option = {
             method:'POST',
             headers:{

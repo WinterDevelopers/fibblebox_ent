@@ -25,7 +25,7 @@ export default function SignUp(){
     const signUpFunc = async()=>{
         setLoading(true)
         const url = "api/sign-up";
-        const body = {"email":email.current.value, "username":username.current.value, "password":password.current.value, "password2":password2.current.value};
+        const body = {"email":email.current.value.toLowerCase(), "username":username.current.value.toLowerCase(), "password":password.current.value, "password2":password2.current.value};
         const option = {
             method:'POST',
             headers:{

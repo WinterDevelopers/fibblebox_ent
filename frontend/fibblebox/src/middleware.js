@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function middleware(request=NextRequest){
     let loginStatus = request.cookies.get('helmet')?.value;
-    //console.log(loginStatus)
+    console.log(loginStatus)
     if(loginStatus == undefined){
         return NextResponse.redirect(new URL('/login', request.url))
     }

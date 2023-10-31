@@ -2,13 +2,16 @@ import datetime
 
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
+from django.utils.text import slugify
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework import viewsets, generics
 
-from .models import Poll, Candidate, EmailPayment,CouponPayment, VotingCoupon
-from .serializers import PollsSerializers
+from .models import Poll, Candidate, EmailPayment,CouponPayment, VotingCoupon, PollPayment
+from .serializers import PollsSerializers, PollCreationSerializer
 from .getPollPageData import PollData
 from .getCandidateData import CandidateData
 from .generateCoupons import CouponGenerator
@@ -181,3 +184,73 @@ def couponVoting(request):
     else:
         return Response({},403)
         
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def checkPollName(request):
+    data = request.data
+    name = data["name"]
+    try:
+        name_exists = Poll.objects.get(name=name)
+        
+        if name_exists:
+            return Response({'name has been used'}, 409)
+    except:
+        return Response({'Avaliable'}, 200)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def generatePollPayment(request):
+    data = request.data
+    print(data)
+    poll_payment = PollPayment.objects.create(email=data["email"])
+    ref = poll_payment.reference
+    amount = poll_payment.amount
+    return Response({"reference":ref, "amount":amount},201)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def verifyPollPayment(request,ref):
+    poll_payment = get_object_or_404(PollPayment,reference = ref, verification=False)
+    
+    poll_payment_status = poll_payment.verified_payment()
+    print(poll_payment_status)
+    if poll_payment_status:
+        return Response({'payment confirmed'}, 202)
+    else:
+        return Response({'confirmation failed'}, 402)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def createPoll(request):
+    #we need to add the payment refernce to the creation 
+    data = request.data
+    poll_dict = {}
+    for i in data:
+        print(data[i])
+        poll_dict[i]=data[i]
+    
+    print(poll_dict)
+
+    serializer_class = PollCreationSerializer
+    new_object = serializer_class(data)
+
+    #Poll.objects.create(new_object)
+    new_poll = Poll.objects.create(active=True,name=poll_dict["name"],slug=slugify(poll_dict["name"]),poll_info=poll_dict["poll_info"],poll_image=poll_dict["poll_image"]
+    ,date=poll_dict["date"],location=poll_dict["location"],cost=poll_dict["cost"],count_down=(poll_dict["count_down"]))
+
+    return Response({'poll created'}, 201)
+  
+class CreatePoll(generics.CreateAPIView):
+    queryset = Poll.objects.all()
+    serializer_class = PollCreationSerializer
+    parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [AllowAny]
+    
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        response['Content-Type']='multipart/form-data'
+        print("created the poll bro")
+        return response
+    

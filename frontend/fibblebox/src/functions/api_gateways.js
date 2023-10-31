@@ -5,7 +5,7 @@ export const apiGateway = async(request,response,_url,method,status, not_status)
     const url = api_url+'/'+_url;
     if(method == "GET"){
         const apiRes = await fetch(url);
-        console.log(apiRes.status)
+        //console.log(apiRes.status)
         if(apiRes.status == status){
         const data = await apiRes.json()
 
@@ -23,10 +23,10 @@ export const apiGateway = async(request,response,_url,method,status, not_status)
             'Accept':'application/json',
             'Content-Type':'application/json',
         },
-        body:JSON.stringify(request.body)
+        body:JSON.stringify(request.body),
         }
         const apiRes = await fetch(url, option)
-        console.log(apiRes.status)
+        //console.log(apiRes.status)
         if(apiRes.status == status){
         const data = await apiRes.json()
 

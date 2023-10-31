@@ -7,9 +7,54 @@ import secrets
 
 # Create your models here.
 
+
+class PollPayment(models.Model):
+    email = models.EmailField(null=False)
+    amount = models.PositiveIntegerField(null=True, default=1000)
+    reference = models.CharField(max_length=200,null=True)
+    verification = models.BooleanField(default=False)
+    transaction_time = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        while not self.reference:
+            _reference = secrets.token_urlsafe(20)
+            existing_reference = PollPayment.objects.filter(reference=_reference)
+
+            if not existing_reference:
+                self.reference = _reference
+
+        super().save(*args,**kwargs)
+
+    def amount_value(self) ->int:
+        amount = self.amount * 100
+        return amount
+
+    def verified_payment(self) -> bool:
+        if self.verification == False:
+
+            paystack = Paystack(self.reference)
+            status, result = paystack.verifyPayment()
+            #print(status, result["amount"])
+            if status:
+                if result['amount']/100 == self.amount:
+                    self.verification = True
+                self.save()
+
+            if self.verification:
+                return True
+            else:
+                return False
+        return False
+
+    def __str__(self) -> str:
+        return str(self.amount)
+
+
 VOTE_COSTS = ((50,"50"),(100,"100"),(200,"200"),(500,"500"),(1000,"1000"))
 
 class Poll(models.Model):
+    active = models.BooleanField(default=False)
+    payment = models.ForeignKey(PollPayment, on_delete=models.SET_NULL, null=True, related_name="poll_payment")
     name = models.CharField(max_length=250,default="default text")
     slug = models.SlugField(max_length=250, unique=True)
     poll_image = models.ImageField(upload_to = 'poll')
@@ -44,6 +89,8 @@ class Poll(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
 
 class Office(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.SET_NULL, related_name='poll_office', null=True)
