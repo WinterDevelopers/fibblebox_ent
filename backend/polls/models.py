@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+from main.models import CustomUser
 from .paystack import Paystack
 
 import secrets
@@ -11,7 +11,7 @@ import secrets
 class PollPayment(models.Model):
     email = models.EmailField(null=False)
     amount = models.PositiveIntegerField(null=True, default=1000)
-    reference = models.CharField(max_length=200,null=True)
+    reference = models.CharField(max_length=200,null=True,unique=True)
     verification = models.BooleanField(default=False)
     transaction_time = models.DateTimeField(auto_now_add=True)
 
@@ -47,12 +47,13 @@ class PollPayment(models.Model):
         return False
 
     def __str__(self) -> str:
-        return str(self.amount)
+        return str(self.reference)
 
 
 VOTE_COSTS = ((50,"50"),(100,"100"),(200,"200"),(500,"500"),(1000,"1000"))
 
 class Poll(models.Model):
+    created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     active = models.BooleanField(default=False)
     payment = models.ForeignKey(PollPayment, on_delete=models.SET_NULL, null=True, related_name="poll_payment")
     name = models.CharField(max_length=250,default="default text")

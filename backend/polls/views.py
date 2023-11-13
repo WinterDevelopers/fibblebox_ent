@@ -201,7 +201,7 @@ def checkPollName(request):
 @permission_classes([AllowAny])
 def generatePollPayment(request):
     data = request.data
-    print(data)
+    
     poll_payment = PollPayment.objects.create(email=data["email"])
     ref = poll_payment.reference
     amount = poll_payment.amount
@@ -249,8 +249,27 @@ class CreatePoll(generics.CreateAPIView):
     
 
     def create(self, request, *args, **kwargs):
+        data = request.data
+        user = request.user
+        slug_id, ref = "",""
+    
+        for item in data:
+            if item == "slug":
+                print("slug",data[item])
+                slug_id = data[item]
+            elif item == "payment_ref":
+                print("da", data[item])
+                ref = data[item]
+
         response = super().create(request, *args, **kwargs)
         response['Content-Type']='multipart/form-data'
-        print("created the poll bro")
+
+        reference_obj = get_object_or_404(PollPayment, reference = ref)
+
+        newly_created = get_object_or_404(Poll, slug = slug_id)
+        newly_created.created_by = user
+        newly_created.payment = reference_obj
+        newly_created.save()
+
         return response
     

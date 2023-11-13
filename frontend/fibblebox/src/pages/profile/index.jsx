@@ -8,9 +8,9 @@ export default function Profile(){
     const router = useRouter();
 
     const {userState,name,email,status} = useSelector((state)=> state.userData);
-    if(!userState){
+    /* if(!userState){
         router.push('/login')
-    }
+    } */
 
     return<>
         <br></br>

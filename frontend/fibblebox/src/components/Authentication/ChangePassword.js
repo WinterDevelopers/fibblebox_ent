@@ -6,9 +6,11 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { clearUserData } from "@/redux/users_data";
 import logoutUser from "@/functions/logout";
+import { RefreshSet } from "./EditUserDetails";
 
 export default function ChangePassword(props){
     const router = useRouter()
+    const dispatch = useDispatch()
 
     const currentPassword = useRef();
     const newPassword = useRef();
@@ -17,7 +19,6 @@ export default function ChangePassword(props){
     const [loading,setLoading] = useState(false);
     //props.verified
 
-    const dispatch = useDispatch()
 
     const eraseUserData = ()=>{
         dispatch(clearUserData());
@@ -25,7 +26,8 @@ export default function ChangePassword(props){
     };
 
     const validatePassword =(e)=>{
-        e.preventDefault()
+        e.preventDefault();
+        setLoading(true)
         if(newPassword.current.value===confirmPassword.current.value){
             reset_password()
         }
@@ -38,7 +40,6 @@ export default function ChangePassword(props){
     const reset_password = async()=>{
         const url = '/api/change_password';
         const body = {"new_password":newPassword.current.value, "old_password":currentPassword.current.value};
-        
         const option = {
             method:'POST',
             headers:{
@@ -51,6 +52,7 @@ export default function ChangePassword(props){
         const apiRes = await fetch(url,option);
         if(apiRes.status == 202){
             eraseUserData();
+
             router.push({
                 pathname:"/login",
                 query:{
@@ -59,9 +61,16 @@ export default function ChangePassword(props){
                 }
             });
         }
+
+        else if(apiRes.status == 307){
+            //if 307 returned then we try to get another ref txn and cal this function again
+            //if isn't successful then data cleared and sent to login page
+        
+            RefreshSet(reset_password,router,dispatch)
+        }
         else{
             setLoading(false);
-            notification_message("error","Opps something went wrong!!!");
+            notification_message("error","Opps something went wrong !!");
         }
     }
 

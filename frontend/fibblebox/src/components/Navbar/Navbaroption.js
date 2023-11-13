@@ -22,6 +22,11 @@ function Navbaroption(){
                     Polls
                 </div>
             </Link>
+            <Link href="/polls/create-poll" onClick={()=>{toggleHambugerBtn(); toggleSideBar()}}>
+                <div className="side-menu-item">
+                    Create A Poll
+                </div>
+            </Link>
                 <div className="side-menu-item">
                     Services
                 </div>

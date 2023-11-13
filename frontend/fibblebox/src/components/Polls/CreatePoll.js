@@ -8,8 +8,13 @@ import api_url from "../../../fecth_urls";
 import notification_message from "@/functions/message_function";
 
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { RefreshSet } from "../Authentication/EditUserDetails";
+import { useDispatch } from "react-redux";
 
 export default function CreatePoll(){
+    const router = useRouter();
+    const dispatch = useDispatch();
 
     const [step1, setStep1] = useState (true);
     const [step2, setStep2] = useState (false);
@@ -61,10 +66,10 @@ export default function CreatePoll(){
         .replace(/^-+|-+$/g, '');
         
 
-    const create_poll = async(nextStep)=>{
+    const create_poll = async(nextStep,reference)=>{
         const formData = new FormData();
-        /* formData.append("active",true);
-        formData.append("payment",null); */
+        /* formData.append("active",true);*/
+        formData.append("payment_ref",reference); 
         formData.append("name",name);
         formData.append("slug",letsSlugify(name));
         formData.append("poll_image",fileData);
@@ -74,9 +79,8 @@ export default function CreatePoll(){
         formData.append("cost",cost);
         formData.append("count_down",date+" "+deadline);
 
-        const url = api_url+"/polls/create-poll/";
+        const url = "/api/create_poll";
         //const body = {"name":name,"poll_info":description,"count_down":deadline,"cost":cost,"location":location, "poll_image":fileData,"date":date};
-
         const option = {
             method:'POST',
             headers:{
@@ -88,6 +92,9 @@ export default function CreatePoll(){
         if(apiRes.status == 201){
             notification_message("success","Your Poll has been successfully created!!!");
             nextStep()
+        }
+        else if(apiRes.status == 307){
+            RefreshSet(create_poll,router,dispatch)
         }
         else{
             notification_message("error","failde to create poll");

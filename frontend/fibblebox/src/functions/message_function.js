@@ -1,9 +1,6 @@
 export default function notification_message(type, information){
 //type = [info, success, warning, error]
 //information message to show the user
-const closeMessage = ()=>{
-    document.querySelector("#message-container").innerHTML=""
-}
 
 const messageClass = type+"-message";
 
@@ -19,6 +16,9 @@ if(typeof window !== "undefined"){
                                  </div>`
     };
     const close_message = document.querySelector("#close-message");
-    close_message.addEventListener("click",()=>{closeMessage()});
+    close_message.addEventListener("click",()=>{closeNotification()});
 
+}
+export const closeNotification = ()=>{
+    document.querySelector("#message-container").innerHTML=""
 }

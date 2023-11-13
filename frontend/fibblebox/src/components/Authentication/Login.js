@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import Link from "next/link";
 import notification_message from "@/functions/message_function";
 import dontSubmit from "@/functions/formDontSubmit";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect} from "react";
 
 import { setUserData } from "@/redux/users_data";
 
@@ -20,10 +20,12 @@ export default function Login(){
 
     if(status && message){
         notification_message(status, message);
+        /* if (typeof window !== "undefined"){
+            window.history.replaceState(null,"",'login')
+        } */
     }
 
-    const setUserDetails = (data)=>{
-        
+    const setUserDetails = (data)=>{ 
         dispatch(setUserData({name:data.username,email:data.email, status:data.status}));
       }
 
@@ -31,7 +33,7 @@ export default function Login(){
         setLoading(true);
         e.preventDefault();
         const url = '/api/login';
-        const body = {"email":email.current.value.toLowerCase(), "password":password.current.value}
+        const body = {"email":email.current.value, "password":password.current.value}
         const option = {
             method:'POST',
             headers:{
@@ -42,15 +44,20 @@ export default function Login(){
         };
         const apiRes = await fetch(url,option);
         if(apiRes.status == 200){
-            const data = await apiRes.json();
-            setUserDetails(data.response_data);
-            router.push("/profile");
+            //const data = await apiRes.json();
+            const apiRes2 = await fetch('/api/user_details');
+            if(apiRes2.status == 200){
+                const data_ = await apiRes2.json()
+                setUserDetails(data_.response_data);
+                router.push("/profile");
+            }
         }
         else{
             setLoading(false)
             notification_message("error","Invalid cridentials !!!");
         }
     }
+
     return <>
         <section className="login-container">
             <form method="POST" onSubmit={loading?dontSubmit:loginFunc}>

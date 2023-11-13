@@ -7,24 +7,25 @@ export const apiGateway = async(request,response,_url,method,status, not_status)
         const apiRes = await fetch(url);
         //console.log(apiRes.status)
         if(apiRes.status == status){
-        const data = await apiRes.json()
+            const data = await apiRes.json()
 
-        return response.status(status).json({ response_data: data});
+            return response.status(status).json({ response_data: data});
         }
         else{
-
+            response.setHeader('Allow',['GET']);
             return response.status(not_status).json({ error: 'Not allowed' });
         }
     }
     else if(method == "POST"){
         const option = {
-        method:method,
-        headers:{
-            'Accept':'application/json',
-            'Content-Type':'application/json',
-        },
-        body:JSON.stringify(request.body),
-        }
+            method:method,
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json',
+            },
+            body:JSON.stringify(request.body)
+        };
+
         const apiRes = await fetch(url, option)
         //console.log(apiRes.status)
         if(apiRes.status == status){
@@ -33,8 +34,8 @@ export const apiGateway = async(request,response,_url,method,status, not_status)
         return response.status(apiRes.status).json({ response_data: data});
         }
         else{
-
-            return response.status(not_status).json({ error: 'John Doe' });
+            response.setHeader('Allow',['POST']);
+            return response.status(not_status).json({ error: 'post failed' });
         }
     }
 }
@@ -42,12 +43,15 @@ export const apiGateway = async(request,response,_url,method,status, not_status)
 export const apiGatewayAuth = async(request,response,_url,method,status, not_status,retry=false,callbackFxn)=>{
     const cookies = cookie.parse(request.headers.cookie ?? '');
         const access = cookies._acxs ?? false;
-
+        
         if(access == false){
-            return response.status(not_status).json({error:'Not Authorizated to make this request'});
+            //console.log("NAHH NO ACCESS")
+            return response.status(307).json({error:'processing your access'});
+            //the client side should call the update token
         }
         else{
             const url = `${api_url}/${_url}`;
+            //////////////////////////////////////////////////////////////////////////
             if(method == "POST"){
                 const option = {
                     method:method,
@@ -64,13 +68,8 @@ export const apiGatewayAuth = async(request,response,_url,method,status, not_sta
                     //console.log("DATA",data);
                     return response.status(apiRes.status).json({response_data:data})
                 }
-                else if(retry){
-                    const authRes = updateToken(request,response)
-                    if(authRes == 200){
-                        apiGatewayAuth(request,response,_url,method,status,405,false)
-                    }
-                }
                 else{
+                    response.setHeader('Allow',['POST']);
                     return response.status(not_status).json({error:'Not Authorizated to make this request'});
                 }
             }
@@ -84,21 +83,16 @@ export const apiGatewayAuth = async(request,response,_url,method,status, not_sta
                         'Authorization':`Bearer ${access}` 
                     }
                 };
-            const apiRes = await fetch(url, option);
-            if(apiRes.status == status){
-                const data = await apiRes.json();
-                //console.log("DATA",data);
-                return response.status(apiRes.status).json({response_data:data})
-            }
-            else if(retry){
-                const authRes = updateToken(request,response)
-                if(authRes == 200){
-                    apiGatewayAuth(request,response,_url,method,status,405,false)
+                const apiRes = await fetch(url, option);
+                if(apiRes.status == status){
+                    const data = await apiRes.json();
+                    //console.log("DATA",data);
+                    return response.status(apiRes.status).json({response_data:data})
                 }
-            }
-            else{
-                return response.status(not_status).json({error:'Not Authorizated to make this request'});
-            }
+                else{
+                    response.setHeader('Allow',['POST']);
+                    return response.status(not_status).json({error:'Not Authorizated to make this request'});
+                }
             }
             
         }
@@ -110,22 +104,30 @@ export const updateToken = async(req,res)=>{
     const refresh = cookies._rfhs ?? false;
 
     if(refresh !== false){
-        const body = JSON.stringify({refresh});
         const option = {
             method:'POST',
             headers:{
                 'Accept':'application/json',
                 'Content-Type':'application/json',
             },
-            body:body
+            body:JSON.stringify({"refresh":refresh})
         }
         const apiRes = await fetch(url,option);
         if(apiRes.status == 200){
-            return 200
+            const data = await apiRes.json();
+            res.setHeader('Set-Cookie',[
+                cookie.serialize('_acxs',data.access,{httpOnly:true,maxAge:60*60*24, sameSite:'strict',path:'/api/'}),
+                cookie.serialize('_rfhs',data.refresh,{httpOnly:true,maxAge:60*60*24*3, sameSite:'strict',path:'/api/'}),
+                cookie.serialize('helmet',"_^_^_",{httpOnly:false,maxAge:60*60*24*3, sameSite:'strict',path:'/'}),
+            ]);
+
+            return res.status(200);
         }
         else{
-            return res.status(403).json({error:'Not Authorizated to make this request'});
+            return res.status(403).json({error:'Not Authorizated to make this request ref'});
         }
     }
-    
+    else{
+        return res.status(403).json({error:'Not Authorizated to make this request ref'});
+    }
 }

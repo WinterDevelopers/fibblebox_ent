@@ -25,6 +25,7 @@ app_name = "main"
 urlpatterns = [
     path('register-user', views.ResgisterUser.as_view(), name="register_name" ),
     path('login', views.LoginUser.as_view(), name="login"),
+    path('logout', views.logoutUser, name="logout"),
     path('refresh', TokenRefreshView.as_view(), name="refresh"),
     path('change-password', views.changePassword, name="change_password"),
     path('recover-forgotten-password', views.sendForgottenPassword, name="recover_forgotten_password"),

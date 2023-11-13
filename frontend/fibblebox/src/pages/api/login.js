@@ -15,7 +15,7 @@ export default async(req,res)=>{
         'Content-Type':'application/json',
       },
       body:JSON.stringify(req.body)
-    }
+    };
     
     const apiRes = await fetch(url, option);
     if(apiRes.status == 200){
@@ -24,11 +24,15 @@ export default async(req,res)=>{
         res.setHeader('Set-Cookie',[
           cookie.serialize('_acxs',data.access,{httpOnly:true,maxAge:60*60*24, sameSite:'strict',path:'/api/'}),
           cookie.serialize('_rfhs',data.refresh,{httpOnly:true,maxAge:60*60*24*3, sameSite:'strict',path:'/api/'}),
-          cookie.serialize('helmet',"_^_^_",{httpOnly:false,maxAge:60*60*24, sameSite:'strict',path:'/'}),
+          cookie.serialize('helmet',"_^_^_",{httpOnly:false,maxAge:60*60*24*3, sameSite:'strict',path:'/'}),
         ]);
 
-        await apiGatewayAuth(req,res,'home/user-details','GET',200,405,true);      
-        //res.status(apiRes.status).json({data:"Successfully logged in"});
+        /* const finalRes = await apiGatewayAuth(req,res,'home/user-details','GET',200,405,true);
+        const finalData = await finalRes.json()      
+        return res.status(apiRes.status).json({data:finalData}); */
+
+        //await apiGatewayAuth(req,res,'home/user-details','GET',200,405,true);      
+        return res.status(apiRes.status).json({data:"Successfully logged in"});
     }
 
     res.status(405).json({ error: 'John Doe' });

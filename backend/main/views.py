@@ -69,6 +69,11 @@ class LoginUser(TokenObtainPairView):
     api_view = (["POST"])
     serializer_class = TokenAuthUserSerializer
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def logoutUser(request):
+    return Response({'logged out'},200)
+
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def sendForgottenPassword(request):
@@ -85,7 +90,6 @@ def sendForgottenPassword(request):
             return Response('', 200)
     else:
         return Response("", 409)
-    
 
 #Important!!! this would POST in standard development and production
 @api_view(["GET"])

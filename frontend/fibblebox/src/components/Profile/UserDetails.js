@@ -1,15 +1,18 @@
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 import { clearUserData } from "@/redux/users_data";
 
 import logoutUser from "@/functions/logout";
 import Link from "next/link";
 export default function UserDetails(props){
-    const dispatch = useDispatch()
+    const router = useRouter();
+    const dispatch = useDispatch();
 
-    const eraseUserData = ()=>{
+    const eraseUserData = async()=>{
         dispatch(clearUserData());
         logoutUser();
+        router.push('/login')
     };
     return<>
         <section className="profile-container">

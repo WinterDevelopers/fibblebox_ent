@@ -9,9 +9,9 @@ import Footer from '../components/Footer/Footer'
 //redux
 import {store, persistor} from "@/redux/store"
 import { Provider } from 'react-redux'
-
 //redux persist
 import { PersistGate } from 'redux-persist/integration/react';
+//functions
 
 export default function App({ Component, pageProps }) {
 
@@ -20,7 +20,6 @@ export default function App({ Component, pageProps }) {
   Router.events.on("routeChangeStart",(url)=>{setLoading(true)});
   //stops the loading icon once the page is done loading
   Router.events.on("routeChangeComplete",(url)=>{setLoading(false)});
-
   return <>
     <Provider store={store}>
       <PersistGate persistor={persistor}>

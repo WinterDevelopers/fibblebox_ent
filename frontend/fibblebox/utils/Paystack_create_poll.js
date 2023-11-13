@@ -41,7 +41,7 @@ async function verifyPayment (reference,createPollApi, next){
         //const res_data = await apiRes.json();
         /* const {votes} = res_data.data; */
         notification_message("info","Payment confirmed, creating your poll. Do not leave the page")
-        createPollApi(next)
+        createPollApi(next,reference)
         //history.back();
         //window.location.replace(`${contest.toLowerCase()}/${candidate_name.toLowerCase()}?vtes=Your ${votes} vote(s) has been successfully added!!!&status=success`)
     }

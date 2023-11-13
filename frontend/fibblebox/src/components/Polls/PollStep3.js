@@ -41,7 +41,6 @@ export default function PollStep3(props){
         }   
     }
 
-
     return<>
          <div className="create-poll-step activate-poll">
             <h3>Step 3</h3>

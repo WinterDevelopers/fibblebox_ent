@@ -74,8 +74,9 @@ class Base64ImageField(serializers.ImageField):
 
 class PollCreationSerializer(serializers.ModelSerializer):
     poll_image = Base64ImageField(max_length=None, use_url=True)
+    active = True
 
     class Meta:
         model = Poll
-        fields = ["name","slug", "poll_image","poll_info","date","location","cost","count_down"]
+        fields = ["active","name","slug", "poll_image","poll_info","date","location","cost","count_down"]
 

@@ -10,13 +10,13 @@ import { clearUserData } from "@/redux/users_data";
 
 export default function login(){
     const router = useRouter();
-    const dispatch = useDispatch()
+    //const dispatch = useDispatch();
 
     const {userState} = useSelector((state)=> state.userData);
     if(userState){
-        
         router.push('/profile')
     }
+
     return<>
         <Head>
             <title>Login page</title>
